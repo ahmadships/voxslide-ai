@@ -1,0 +1,41 @@
+# Product Specification: VoxSlide AI
+
+## 1. Executive Summary & Core Idea
+VoxSlide AI is a lightweight, hands-free, zero-hardware desktop application designed for public speakers, presenters, lecturers, and creators. The product solves a major pain point: presenters feeling trapped behind their laptops or awkwardly fumbling with plastic hardware clickers/smartphones while on stage. 
+
+With VoxSlide AI, the user simply speaks naturally. When they say a configured vocal command like "next" or "next slide", the app intercepts the audio, processes it, and automatically flips the slide.
+
+## 2. Technical Stack & Architecture
+To ensure maximum responsiveness and clean generation, the application must be structured using Python with the following libraries:
+* **Frontend GUI:** `customtkinter` (Dark mode by default, modern tech aesthetic).
+* **Speech Recognition:** `speech_recognition` (utilizing Google Web API for alpha testing, with a structural roadmap toward a local offline fallback like Vosk or Whisper Tiny).
+* **OS Key Simulation:** `pyautogui` (to simulate pressing the 'right' arrow key for next slide, and 'left' arrow key for previous slide).
+* **Threading Architecture:** The audio listening loop and microphone stream MUST run on a dedicated background thread (using Python's `threading` library). It must never block or freeze the main CustomTkinter UI loop.
+
+## 3. UI/UX Requirements (The Vibe)
+The desktop app window should look sleek, modern, and professional:
+* **Header:** Clear, prominent title branding: "🎙️ VoxSlide AI".
+* **Control Button:** A large, obvious Call-to-Action toggle button to "Start Listening" / "Stop Listening". The button must change color dynamically (e.g., sleek blue/green when idle/ready, crimson red when actively listening).
+* **Live Status Indicator:** A text label updating in real-time (e.g., "Status: Idle", "Status: Listening...", "Status: ➡️ Next Slide Triggered!").
+* **Live Terminal Logs:** A scrollable, read-only textbox field that prints out what the microphone hears in real-time for user reassurance (e.g., `[Audio] Heard: "hello"`, `[Audio] Heard: "next slide" -> Simulating Keypress`).
+* **Sensitivity Control:** A modern slider to adjust the microphone's ambient noise energy threshold.
+
+## 4. Business & Monetization Roadmap
+* **Tier 1 (Freemium):** Free download, basic "Next" command, restricted to 10-minute presentation sessions.
+* **Tier 2 (Pro Subscription/Lifetime):** $5-9/mo or $29 lifetime license. Unlocks custom wake words, unlimited time, audio click confirmations, and 100% offline local AI voice processing (crucial for speakers on shaky event Wi-Fi).
+
+---
+
+## INSTRUCTIONS FOR CLAUDE CODE (The System Prompt Generator)
+
+Based on the detailed product specifications above, please perform the following tasks sequentially:
+
+1.  **Analyze the Requirements:** Read through this architecture, the threading constraints, and the design requirements carefully.
+2.  **Generate a Master Implementation Prompt:** Create a highly optimized, comprehensive system prompt that I can feed directly back to you (or another agent session) to build this entire modular app framework from scratch.
+3.  **The Generated Prompt Must Direct You To:**
+    * Initialize a clean configuration structure (`config.py`).
+    * Build a robust, non-blocking background audio listener module (`audio_engine.py`).
+    * Design the modern `customtkinter` visual dashboard layout (`ui_components.py`).
+    * Assemble everything safely via an entry point script (`main.py`).
+    * Handle silent error handling for ambient room noise (`UnknownValueError`).
+4.  **Output Format:** Present the final generated prompt inside a clean markdown code block so it is easily copy-pasteable.
