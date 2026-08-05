@@ -1,1856 +1,1538 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<meta name="application-name" content="VoxSlide AI">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VoxSlide AI — Voice Controlled Slides for Windows | Free Download</title>
-  <meta name="google-site-verification" content="VLfEgSqMO3N5BGz3MSGjffL8ZPy_VSmvpJjHwBuVd4I" />
-  <meta name="description" content="Control your presentation slides hands-free with your voice. No clicker needed. Works with PowerPoint, Google Slides, Canva and more. Free download for Windows 10/11.">
-  <meta name="keywords" content="voice controlled presentation, hands free slides, presentation clicker alternative, PowerPoint voice control, Google Slides voice control, free presentation tool, VoxSlide AI, slide clicker app">
-  <meta name="author" content="Mohammad Ahmad">
-  <meta name="robots" content="index, follow">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="VoxSlide AI — Control Slides With Your Voice">
-  <meta property="og:description" content="No clicker. No phone. Just say next slide. Free download for Windows 10/11.">
-  <meta property="og:url" content="https://voxslide-ai.vercel.app">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="VoxSlide AI">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "VoxSlide AI",
-  "url": "https://voxslide-ai.vercel.app/"
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxSlide AI — Your Voice Is the Clicker</title>
+<meta name="description" content="VoxSlide AI lets you control PowerPoint, Google Slides and Canva with your voice. No clicker, no phone, no hardware. Free for Windows 10/11.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230e1220'/><g fill='%23c9f73a'><rect x='24' y='38' width='8' height='24' rx='4'/><rect x='38' y='26' width='8' height='48' rx='4'/><rect x='52' y='34' width='8' height='32' rx='4'/><rect x='66' y='42' width='8' height='16' rx='4'/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0d13;
+  --bg2:#0d1119;
+  --panel:#101624;
+  --panel2:#141b2d;
+  --line:rgba(150,166,196,.14);
+  --line-strong:rgba(150,166,196,.28);
+  --ink:#eef2f8;
+  --muted:#95a1b8;
+  --dim:#66718a;
+  --lime:#c9f73a;
+  --lime-soft:rgba(201,247,58,.13);
+  --cyan:#3fd8ff;
+  --coral:#ff5b3a;
+  --amber:#ffb43a;
+  --grad-cool:linear-gradient(100deg,#c9f73a,#3fd8ff);
+  --grad-hot:linear-gradient(100deg,#ff5b3a,#ffb43a);
+  --r:14px;
+  --nav-h:72px;
 }
-</script>
-
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://voxslide-ai.vercel.app">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg: #0A0F1E;
-      --surface: #1E293B;
-      --border: #334155;
-      --primary: #2563EB;
-      --primary-hover: #1D4ED8;
-      --green: #4ADE80;
-      --gold: #F59E0B;
-      --text: #F8FAFC;
-      --text-muted: #94A3B8;
-      --radius: 16px;
-      --shadow: 0 0 40px rgba(37, 99, 235, 0.15);
-      --nav-height: 72px;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      outline: none;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* ── Navbar ── */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      height: var(--nav-height);
-      display: flex;
-      align-items: center;
-      background: rgba(10, 15, 30, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(51, 65, 85, 0.5);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .navbar.hidden {
-      transform: translateY(-100%);
-    }
-
-    .navbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-weight: 600;
-      font-size: 15px;
-      border-radius: 10px;
-      padding: 12px 24px;
-      transition: all 0.25s ease;
-    }
-
-    .btn-sm {
-      padding: 8px 18px;
-      font-size: 14px;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 0 30px rgba(37, 99, 235, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: rgba(37, 99, 235, 0.1);
-      box-shadow: 0 0 25px rgba(37, 99, 235, 0.25);
-      transform: translateY(-1px);
-    }
-
-    .btn-whatsapp {
-      background: #25D366;
-      color: #fff;
-      width: 100%;
-      padding: 16px 24px;
-      font-size: 16px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
-    }
-
-    .btn-whatsapp:hover {
-      background: #1ebe57;
-      box-shadow: 0 0 30px rgba(37, 211, 102, 0.5);
-      transform: translateY(-1px);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      padding: 8px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: var(--nav-height);
-      left: 0;
-      right: 0;
-      background: rgba(10, 15, 30, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 24px;
-      z-index: 999;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .mobile-menu.open {
-      display: flex;
-    }
-
-    .mobile-menu a {
-      color: var(--text-muted);
-      font-size: 16px;
-      font-weight: 500;
-      padding: 8px 0;
-    }
-
-    .mobile-menu a:hover {
-      color: var(--text);
-    }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: calc(var(--nav-height) + 40px) 24px 80px;
-      overflow: hidden;
-    }
-
-    .hero-orb {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.25) 0%, rgba(37, 99, 235, 0.05) 40%, transparent 70%);
-      pointer-events: none;
-      animation: orbPulse 6s ease-in-out infinite;
-    }
-
-    @keyframes orbPulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
-      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 800px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 18px;
-      border: 1px solid var(--primary);
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 28px;
-      background: rgba(37, 99, 235, 0.08);
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -0.02em;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #60A5FA, #2563EB, #818CF8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      color: var(--text-muted);
-      font-size: clamp(1rem, 2vw, 1.125rem);
-      max-width: 600px;
-      margin-bottom: 36px;
-      line-height: 1.7;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .trust-pill {
-      padding: 8px 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* ── Sections ── */
-    section {
-      padding: 100px 0;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-header h2 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .section-header p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── How It Works ── */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      position: relative;
-    }
-
-    .steps-grid::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      left: calc(16.66% + 20px);
-      right: calc(16.66% + 20px);
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--border), var(--primary));
-      z-index: 0;
-    }
-
-    .step-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 36px 28px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      box-shadow: var(--shadow);
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .step-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(37, 99, 235, 0.4);
-    }
-
-    .step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      border-radius: 50%;
-      margin-bottom: 20px;
-    }
-
-    .step-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-
-    .step-card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .step-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* ── Features ── */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(37, 99, 235, 0.3);
-      box-shadow: var(--shadow);
-    }
-
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    /* ── Pricing ── */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px 32px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .pricing-card.pro {
-      border-color: var(--primary);
-      box-shadow: var(--shadow);
-    }
-
-    .pricing-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      width: fit-content;
-    }
-
-    .pricing-badge.free {
-      background: rgba(148, 163, 184, 0.15);
-      color: var(--text-muted);
-    }
-
-    .pricing-badge.pro {
-      background: var(--gold);
-      color: #0A0F1E;
-    }
-
-    .pricing-price {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .pricing-price .strike {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      text-decoration: line-through;
-      font-weight: 500;
-      margin-left: 8px;
-    }
-
-    .pricing-sub {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 28px;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-      flex: 1;
-    }
-
-    .pricing-features li {
-      padding: 8px 0;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .pricing-features .yes { color: var(--text); }
-    .pricing-features .no { color: var(--text-muted); opacity: 0.6; }
-
-    .pricing-note {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 13px;
-      margin-top: 12px;
-    }
-
-    /* ── Terminal ── */
-    .terminal-wrapper {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .terminal {
-      background: #0D1117;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
-      background: #161B22;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .terminal-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .terminal-dot.red { background: #FF5F57; }
-    .terminal-dot.yellow { background: #FEBC2E; }
-    .terminal-dot.green { background: #28C840; }
-
-    .terminal-title {
-      margin-left: 12px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .terminal-body {
-      padding: 28px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 14px;
-      line-height: 1.8;
-      color: #C9D1D9;
-    }
-
-    .terminal-body .cmd { color: var(--green); }
-    .terminal-body .label { color: #58A6FF; font-weight: 700; }
-    .terminal-body .phrases { color: var(--text-muted); }
-    .terminal-body .pro-note { color: var(--gold); margin-top: 16px; }
-
-    .cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      background: var(--green);
-      animation: blink 1s step-end infinite;
-      vertical-align: text-bottom;
-      margin-left: 2px;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* ── FAQ ── */
-    .faq-list {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-
-    .faq-item {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      background: var(--surface);
-      transition: border-color 0.3s;
-    }
-
-    .faq-item.active {
-      border-color: rgba(37, 99, 235, 0.4);
-    }
-
-    .faq-question {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      background: none;
-      color: var(--text);
-      font-size: 1rem;
-      font-weight: 600;
-      text-align: left;
-      gap: 16px;
-    }
-
-    .faq-question:hover {
-      color: var(--primary);
-    }
-
-    .faq-icon {
-      font-size: 20px;
-      color: var(--text-muted);
-      transition: transform 0.3s;
-      flex-shrink: 0;
-    }
-
-    .faq-item.active .faq-icon {
-      transform: rotate(45deg);
-      color: var(--primary);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .faq-answer-inner {
-      padding: 0 24px 20px;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    /* ── Final CTA ── */
-    .final-cta {
-      background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #3B82F6 100%);
-      padding: 100px 24px;
-      text-align: center;
-    }
-
-    .final-cta h2 {
-      font-size: clamp(1.75rem, 4vw, 2.5rem);
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .final-cta p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.1rem;
-      margin-bottom: 36px;
-    }
-
-    .final-cta .hero-buttons {
-      margin-bottom: 24px;
-    }
-
-    .final-cta .btn-outline {
-      border-color: #fff;
-      color: #fff;
-    }
-
-    .final-cta .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .final-cta .btn-primary {
-      background: #fff;
-      color: var(--primary);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .final-cta .btn-primary:hover {
-      background: #F1F5F9;
-    }
-
-    .final-cta-note {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 14px;
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: #060A14;
-      padding: 48px 0 32px;
-    }
-
-    .footer-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .footer-nav {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .footer-nav a {
-      color: var(--text-muted);
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .footer-nav a:hover {
-      color: var(--text);
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 16px;
-    }
-
-    .social-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-size: 14px;
-      transition: all 0.2s;
-    }
-
-    .social-icon:hover {
-      border-color: var(--primary);
-      color: var(--text);
-    }
-
-    .footer-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* ── Modals ── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .modal-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 420px;
-      padding: 36px 32px;
-      position: relative;
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-overlay.open .modal {
-      transform: scale(1) translateY(0);
-    }
-
-    .modal.payment-modal {
-      max-width: 480px;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: rgba(148, 163, 184, 0.1);
-      color: var(--text-muted);
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-
-    .modal-close:hover {
-      background: rgba(148, 163, 184, 0.2);
-      color: var(--text);
-    }
-
-    .modal h2 {
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin-bottom: 8px;
-      padding-right: 32px;
-    }
-
-    .modal-subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 28px;
-    }
-
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-muted);
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 15px;
-      transition: border-color 0.2s;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    .form-group input.error {
-      border-color: #EF4444;
-    }
-
-    .form-hint {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .form-error {
-      font-size: 12px;
-      color: #EF4444;
-      margin-top: 4px;
-      display: none;
-    }
-
-    .form-group.has-error .form-error {
-      display: block;
-    }
-
-    .btn-submit {
-      width: 100%;
-      margin-top: 8px;
-      position: relative;
-    }
-
-    .btn-submit .spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    .btn-submit.loading .spinner {
-      display: inline-block;
-    }
-
-    .btn-submit.loading .btn-text {
-      opacity: 0.7;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .success-state {
-      text-align: center;
-      padding: 20px 0;
-      display: none;
-    }
-
-    .success-state.show {
-      display: block;
-    }
-
-    .success-check {
-      font-size: 64px;
-      margin-bottom: 16px;
-    }
-
-    .success-state h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .success-state p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .payment-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      padding-right: 32px;
-    }
-
-    .lifetime-badge {
-      background: var(--gold);
-      color: #0A0F1E;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 6px;
-      letter-spacing: 0.05em;
-    }
-
-    .payment-price {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .payment-price .amount {
-      font-size: 3rem;
-      font-weight: 800;
-    }
-
-    .payment-price .strike {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      text-decoration: line-through;
-      margin-left: 8px;
-    }
-
-    .payment-price-sub {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 24px;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 24px 0;
-    }
-
-    .payment-methods h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .payment-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 20px;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.25s;
-      margin-bottom: 12px;
-    }
-
-    .payment-card:hover {
-      border-color: rgba(37, 99, 235, 0.4);
-      box-shadow: 0 0 20px rgba(37, 99, 235, 0.1);
-    }
-
-    .payment-card.selected {
-      border-color: var(--primary);
-      box-shadow: 0 0 25px rgba(37, 99, 235, 0.2);
-      background: rgba(37, 99, 235, 0.05);
-    }
-
-    .payment-card-icon {
-      font-size: 28px;
-    }
-
-    .payment-card-info h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-
-    .payment-card-info p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .payment-instructions {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .payment-instructions.show {
-      display: block;
-    }
-
-    .info-box {
-      background: rgba(245, 158, 11, 0.1);
-      border: 1px solid rgba(245, 158, 11, 0.3);
-      border-radius: 12px;
-      padding: 18px 20px;
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    .info-box ol {
-      margin: 8px 0 0 20px;
-    }
-
-    .info-box li {
-      margin-bottom: 4px;
-    }
-
-    .payment-footer-note {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 12px;
-      margin-top: 16px;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .steps-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .steps-grid::before {
-        display: none;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-top {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .footer-nav {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 540px) {
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .hero-buttons .btn {
-        width: 100%;
-      }
-    }
-  </style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--lime);color:#0a0d13}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#232c42;border-radius:6px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+img,svg{display:block}
+.mn{font-family:'JetBrains Mono',monospace}
+.df{font-family:'Unbounded',sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- noise + texture ---------- */
+.noise{
+  position:fixed;inset:0;z-index:2000;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);
+  display:flex;align-items:center;
+  transition:background .35s ease,border-color .35s ease,backdrop-filter .35s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{background:rgba(10,13,19,.82);backdrop-filter:blur(14px);border-bottom-color:var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Unbounded';font-weight:700;font-size:1.05rem;letter-spacing:-.02em}
+.logo-mark{
+  width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#141b2d,#0d1119);
+  border:1px solid var(--line-strong);display:grid;place-items:center;position:relative;overflow:hidden;
+}
+.logo-mark::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,247,58,.25),transparent 60%)}
+.logo-mark svg{position:relative;z-index:1}
+.logo .ai{
+  font-family:'JetBrains Mono';font-size:.6rem;font-weight:700;letter-spacing:.14em;
+  background:var(--grad-cool);color:#0a0d13;padding:3px 6px;border-radius:5px;transform:translateY(-6px);
+}
+.nav-links{display:flex;align-items:center;gap:30px;font-weight:500;font-size:.92rem;color:var(--muted)}
+.nav-links a{position:relative;transition:color .25s}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--lime);transition:width .3s cubic-bezier(.6,0,.2,1)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:14px}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-weight:700;font-size:.95rem;border-radius:11px;padding:13px 24px;border:1px solid transparent;
+  position:relative;overflow:hidden;transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,border-color .25s,color .25s,background .25s;
+  white-space:nowrap;
+}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:var(--lime);color:#0c1002;box-shadow:0 4px 24px rgba(201,247,58,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(201,247,58,.4)}
+.btn-primary::after{
+  content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-20deg);transition:left .6s ease;
+}
+.btn-primary:hover::after{left:130%}
+.btn-hot{background:var(--grad-hot);color:#2a0d05;box-shadow:0 4px 24px rgba(255,91,58,.28)}
+.btn-hot:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(255,91,58,.45)}
+.btn-hot::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s ease}
+.btn-hot:hover::after{left:130%}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime);transform:translateY(-2px)}
+.btn-sm{padding:10px 18px;font-size:.87rem;border-radius:9px}
+.btn-lg{padding:16px 30px;font-size:1.02rem}
+.btn svg{flex-shrink:0}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:calc(var(--nav-h) + 48px) 0 70px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(150,166,196,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(150,166,196,.06) 1px,transparent 1px);
+  background-size:52px 52px;
+  -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 0%,#000 30%,transparent 75%);
+  mask-image:radial-gradient(ellipse 90% 80% at 50% 0%,#000 30%,transparent 75%);
+}
+.hero-glow-a{position:absolute;top:-180px;left:-140px;width:560px;height:560px;background:radial-gradient(circle,rgba(201,247,58,.12),transparent 65%)}
+.hero-glow-b{position:absolute;top:60px;right:-200px;width:640px;height:640px;background:radial-gradient(circle,rgba(63,216,255,.10),transparent 65%)}
+.hero-glow-c{position:absolute;bottom:-260px;left:35%;width:520px;height:520px;background:radial-gradient(circle,rgba(255,91,58,.08),transparent 65%)}
+.hero-grid-inner{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono';font-size:.72rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--lime);
+  border:1px solid rgba(201,247,58,.3);background:var(--lime-soft);padding:7px 14px;border-radius:100px;margin-bottom:26px;
+}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,247,58,.5)}50%{box-shadow:0 0 0 7px rgba(201,247,58,0)}}
+.hero h1{
+  font-family:'Unbounded';font-weight:800;font-size:clamp(2rem,4.4vw,3.35rem);
+  line-height:1.08;letter-spacing:-.02em;margin-bottom:22px;
+}
+.hl{color:var(--lime);position:relative;display:inline-block}
+.hl::after{
+  content:'';position:absolute;left:-2%;right:-2%;bottom:6%;height:26%;z-index:-1;
+  background:rgba(201,247,58,.18);transform:skewX(-8deg);border-radius:3px;
+}
+.hero-sub{color:var(--muted);font-size:1.08rem;max-width:520px;margin-bottom:32px}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+.trust-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+.trust-pill{
+  display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono';font-size:.72rem;
+  color:var(--muted);border:1px solid var(--line);background:rgba(16,22,36,.6);padding:7px 13px;border-radius:100px;
+}
+.trust-pill svg{color:var(--cyan)}
+.trust-pill.dashed{border-style:dashed;border-color:rgba(255,180,58,.4)}
+.trust-pill.dashed svg{color:var(--amber)}
+.works-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-family:'JetBrains Mono';font-size:.72rem;color:var(--dim);letter-spacing:.1em}
+.works-chip{color:var(--muted);font-weight:500;letter-spacing:.02em;font-family:'Space Grotesk';font-size:.82rem;border-bottom:1px dotted var(--line-strong);padding-bottom:1px}
+
+/* ---------- hero stage ---------- */
+.stage-col{position:relative}
+.stage{
+  position:relative;background:linear-gradient(160deg,var(--panel2),var(--panel));
+  border:1px solid var(--line-strong);border-radius:18px;padding:0;overflow:visible;
+  box-shadow:0 30px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.02) inset;
+  transform:rotate(1.2deg);
+  transition:transform .6s cubic-bezier(.2,.8,.2,1);
+}
+.stage:hover{transform:rotate(0deg)}
+.stage-head{display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.tdot{width:10px;height:10px;border-radius:50%}
+.tdot.r{background:#ff5f57}.tdot.y{background:#febc2e}.tdot.g{background:#28c840}
+.stage-title{margin-left:8px;font-family:'JetBrains Mono';font-size:.72rem;color:var(--dim)}
+.live-pill{
+  margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:.66rem;
+  letter-spacing:.14em;color:var(--coral);border:1px solid rgba(255,91,58,.4);padding:4px 10px;border-radius:100px;
+}
+.live-pill .dot-live{background:var(--coral);animation:pulse-r 1.6s ease-in-out infinite}
+@keyframes pulse-r{0%,100%{box-shadow:0 0 0 0 rgba(255,91,58,.5)}50%{box-shadow:0 0 0 6px rgba(255,91,58,0)}}
+.deck{position:relative;height:300px;margin:14px;border-radius:12px;overflow:hidden;background:#0b0f1a;border:1px solid var(--line)}
+.slide{
+  position:absolute;inset:0;padding:28px 30px;display:flex;flex-direction:column;justify-content:center;
+  opacity:0;transform:translateX(36px) scale(.98);transition:opacity .5s ease,transform .55s cubic-bezier(.2,.8,.2,1);
+  pointer-events:none;
+}
+.slide.active{opacity:1;transform:translateX(0) scale(1);pointer-events:auto}
+.slide.exit-back{transform:translateX(-36px) scale(.98)}
+.s-eyebrow{font-family:'JetBrains Mono';font-size:.66rem;letter-spacing:.22em;color:var(--cyan);margin-bottom:12px}
+.s-title-big{font-family:'Unbounded';font-weight:800;font-size:2rem;line-height:1.1;letter-spacing:-.02em}
+.s-bar{width:72px;height:6px;border-radius:3px;background:var(--grad-cool);margin-top:18px}
+.s-chart{display:flex;align-items:flex-end;gap:12px;height:110px;margin-top:18px}
+.s-chart i{flex:1;border-radius:5px 5px 2px 2px;background:#1d2740;animation:none}
+.s-chart i.hot{background:var(--grad-cool)}
+.s-quote{font-family:'Unbounded';font-weight:700;font-size:1.25rem;line-height:1.4;max-width:88%}
+.s-quote em{color:var(--lime);font-style:normal}
+.s-src{font-family:'JetBrains Mono';font-size:.68rem;color:var(--dim);margin-top:16px}
+.s-road{display:flex;align-items:center;gap:0;margin-top:24px;position:relative}
+.s-road::before{content:'';position:absolute;left:8px;right:8px;top:7px;height:2px;background:var(--line-strong)}
+.s-stop{flex:1;position:relative;text-align:center;font-family:'JetBrains Mono';font-size:.66rem;color:var(--muted)}
+.s-stop i{display:block;width:16px;height:16px;border-radius:50%;background:var(--panel2);border:2px solid var(--dim);margin:0 auto 10px;position:relative;z-index:1}
+.s-stop.on i{border-color:var(--lime);background:var(--lime);box-shadow:0 0 14px rgba(201,247,58,.6)}
+.s-stop.on{color:var(--lime)}
+.s-thanks{font-family:'Unbounded';font-weight:800;font-size:2.4rem}
+.s-thanks span{color:var(--coral)}
+.deck-foot{display:flex;align-items:center;gap:16px;padding:0 16px 15px}
+.wave{display:flex;align-items:center;gap:3px;height:34px;flex:1}
+.wave i{width:3px;border-radius:2px;background:var(--grad-cool);height:20%;transition:height .12s linear;opacity:.85}
+.counter{font-family:'JetBrains Mono';font-size:.74rem;color:var(--muted);letter-spacing:.1em}
+.counter b{color:var(--lime);font-weight:700}
+.heard{
+  position:absolute;top:-22px;left:50%;transform:translateX(-50%) translateY(8px);z-index:5;
+  display:flex;align-items:center;gap:10px;background:#151d31;border:1px solid var(--line-strong);
+  border-radius:100px;padding:9px 18px;font-family:'JetBrains Mono';font-size:.82rem;
+  box-shadow:0 12px 34px rgba(0,0,0,.5);opacity:0;transition:opacity .35s,transform .35s;white-space:nowrap;
+}
+.heard.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.heard .mic-ic{color:var(--coral)}
+.heard .q{color:var(--lime);font-weight:700}
+.heard .ck{color:var(--cyan);opacity:0;transition:opacity .25s}
+.heard.done .ck{opacity:1}
+.mic-pill{
+  position:absolute;bottom:-16px;right:26px;z-index:5;display:flex;align-items:center;gap:8px;
+  background:#0e1524;border:1px solid var(--line-strong);border-radius:100px;padding:8px 15px;
+  font-family:'JetBrains Mono';font-size:.7rem;color:var(--muted);box-shadow:0 10px 30px rgba(0,0,0,.45);
+}
+.mic-pill .dot-live{background:var(--cyan);animation:pulse-c 1.6s ease-in-out infinite}
+@keyframes pulse-c{0%,100%{box-shadow:0 0 0 0 rgba(63,216,255,.5)}50%{box-shadow:0 0 0 6px rgba(63,216,255,0)}}
+.say-row{display:flex;gap:10px;margin-top:34px;justify-content:center;flex-wrap:wrap}
+.say-btn{
+  font-family:'JetBrains Mono';font-size:.78rem;color:var(--muted);background:rgba(16,22,36,.7);
+  border:1px solid var(--line);border-radius:100px;padding:9px 18px;transition:all .25s;
+}
+.say-btn:hover{color:var(--lime);border-color:var(--lime);transform:translateY(-2px)}
+.say-btn span{color:var(--lime)}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);background:var(--bg2);overflow:hidden;padding:15px 0;position:relative}
+.marquee-track{display:flex;gap:0;width:max-content;animation:mar 26s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes mar{to{transform:translateX(-50%)}}
+.mq-item{
+  font-family:'Unbounded';font-weight:700;font-size:.86rem;letter-spacing:.06em;white-space:nowrap;
+  padding:0 26px;display:flex;align-items:center;gap:26px;color:var(--ink);
+}
+.mq-item .sep{color:var(--coral);font-size:.8rem}
+.mq-item:nth-child(odd){color:var(--muted)}
+.mq-item .lm{color:var(--lime)}
+.mq-item .cy{color:var(--cyan)}
+
+/* ---------- sections ---------- */
+section{position:relative}
+.sec{padding:100px 0}
+.sec-eyebrow{
+  font-family:'JetBrains Mono';font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--cyan);display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.sec-eyebrow::before{content:'';width:26px;height:2px;background:var(--cyan)}
+.sec-title{font-family:'Unbounded';font-weight:800;font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.12;letter-spacing:-.02em;margin-bottom:14px}
+.sec-sub{color:var(--muted);max-width:560px;margin-bottom:56px}
+
+/* ---------- how it works ---------- */
+.how{background:var(--bg2);border-block:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;position:relative}
+.step{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:34px 28px;position:relative;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;overflow:hidden;
+}
+.step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc,var(--lime));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.step:hover{transform:translateY(-6px);border-color:var(--line-strong);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.step:hover::before{transform:scaleX(1)}
+.step-num{
+  font-family:'Unbounded';font-weight:800;font-size:3.4rem;line-height:1;
+  color:transparent;-webkit-text-stroke:1.5px var(--acc,var(--lime));opacity:.85;margin-bottom:20px;
+}
+.step-ic{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;
+  background:color-mix(in srgb,var(--acc,var(--lime)) 12%,transparent);color:var(--acc,var(--lime));
+  border:1px solid color-mix(in srgb,var(--acc,var(--lime)) 30%,transparent);
+}
+.step h3{font-family:'Unbounded';font-weight:700;font-size:1.06rem;margin-bottom:10px}
+.step p{color:var(--muted);font-size:.94rem}
+.step-arrow{
+  position:absolute;top:50%;right:-22px;transform:translateY(-50%);z-index:2;color:var(--dim);
+  font-size:1.1rem;background:var(--bg2);border:1px solid var(--line);border-radius:50%;width:34px;height:34px;
+  display:grid;place-items:center;
+}
+
+/* ---------- features ---------- */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.feat{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;position:relative;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;overflow:hidden;
+}
+.feat::after{
+  content:'';position:absolute;top:-60px;right:-60px;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--acc,var(--lime)) 14%,transparent),transparent 70%);
+  opacity:0;transition:opacity .4s;
+}
+.feat:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--acc,var(--lime)) 45%,transparent);box-shadow:0 22px 50px rgba(0,0,0,.42)}
+.feat:hover::after{opacity:1}
+.feat-ic{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;
+  color:var(--acc,var(--lime));background:color-mix(in srgb,var(--acc,var(--lime)) 11%,transparent);
+  border:1px solid color-mix(in srgb,var(--acc,var(--lime)) 28%,transparent);
+  transition:transform .35s;
+}
+.feat:hover .feat-ic{transform:scale(1.08) rotate(-4deg)}
+.feat h3{font-family:'Unbounded';font-weight:700;font-size:1rem;margin-bottom:9px}
+.feat p{color:var(--muted);font-size:.92rem}
+.feat-extra{margin-top:18px}
+.conf-bar{height:6px;border-radius:3px;background:#1a2338;overflow:hidden}
+.conf-bar i{display:block;height:100%;width:0;border-radius:3px;background:var(--grad-cool);transition:width 1.2s cubic-bezier(.2,.8,.2,1) .3s}
+.in .conf-bar i{width:98%}
+.conf-lab{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:.66rem;color:var(--dim);margin-top:7px}
+.conf-lab b{color:var(--lime)}
+.lat-row{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono';font-size:.7rem;color:var(--dim)}
+.lat-bar{flex:1;height:6px;border-radius:3px;background:#1a2338;position:relative;overflow:hidden}
+.lat-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--cyan);border-radius:3px;transition:width 1s ease .3s}
+.in .lat-bar i{width:38%}
+.lat-row b{color:var(--cyan)}
+.sens-wrap{display:flex;align-items:center;gap:12px}
+.sens-wrap input[type=range]{flex:1;-webkit-appearance:none;appearance:none;height:5px;border-radius:3px;background:linear-gradient(90deg,var(--amber) var(--val,60%),#1a2338 var(--val,60%));outline:none}
+.sens-wrap input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--amber);
+  border:3px solid #0e1220;box-shadow:0 0 0 2px var(--amber);cursor:grab;
+}
+.sens-lab{font-family:'JetBrains Mono';font-size:.68rem;color:var(--amber);min-width:66px;text-align:right}
+
+/* ---------- terminal demo ---------- */
+.demo{background:var(--bg2);border-block:1px solid var(--line)}
+.demo-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:26px;align-items:start}
+.term{
+  background:#090d15;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.5);
+}
+.term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:#0c1120}
+.term-bar .stage-title{color:var(--dim)}
+.term-body{
+  padding:20px 20px 10px;font-family:'JetBrains Mono';font-size:.8rem;line-height:2;height:330px;overflow-y:auto;
+}
+.term-body::-webkit-scrollbar{width:6px}
+.term-body::-webkit-scrollbar-thumb{background:#1e2946}
+.tl{display:flex;gap:8px;flex-wrap:wrap;animation:tl-in .35s ease}
+@keyframes tl-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.tl .time{color:var(--dim)}
+.tl .sys{color:var(--cyan)}
+.tl .ok{color:var(--lime)}
+.tl .heard{color:var(--ink)}
+.tl .word{color:var(--coral);font-weight:700}
+.tl .conf{color:var(--dim)}
+.tl .mv{color:var(--lime)}
+.tl.pro .word{color:var(--amber)}
+.term-input{
+  padding:12px 20px;border-top:1px solid var(--line);font-family:'JetBrains Mono';font-size:.8rem;color:var(--lime);
+  display:flex;align-items:center;gap:10px;background:#0c1120;
+}
+.cursor{width:9px;height:17px;background:var(--lime);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.side-panel{display:flex;flex-direction:column;gap:18px}
+.panel-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.panel-card h4{font-family:'Unbounded';font-weight:700;font-size:.92rem;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+.panel-card h4 svg{color:var(--cyan)}
+.cmd-chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  font-family:'JetBrains Mono';font-size:.76rem;padding:8px 15px;border-radius:9px;
+  background:#0e1526;border:1px solid var(--line-strong);color:var(--muted);transition:all .22s;position:relative;
+}
+.chip:hover{color:var(--lime);border-color:var(--lime);transform:translateY(-2px)}
+.chip.custom{border-color:rgba(255,180,58,.5);color:var(--amber)}
+.chip .pro-tag{position:absolute;top:-8px;right:-7px;font-size:.5rem;background:var(--grad-hot);color:#2a0d05;padding:2px 5px;border-radius:4px;font-weight:700;letter-spacing:.08em}
+.tracker{margin-top:18px}
+.tracker-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono';font-size:.7rem;color:var(--dim);margin-bottom:8px}
+.tracker-top b{color:var(--lime)}
+.tracker-bar{height:7px;border-radius:4px;background:#141c30;overflow:hidden}
+.tracker-bar i{display:block;height:100%;background:var(--grad-cool);border-radius:4px;transition:width .45s cubic-bezier(.2,.8,.2,1)}
+.teach-row{display:flex;gap:9px;margin-top:4px}
+.teach-row input{
+  flex:1;background:#0b101d;border:1px solid var(--line-strong);border-radius:9px;padding:10px 14px;
+  color:var(--ink);font-family:'JetBrains Mono';font-size:.8rem;outline:none;transition:border-color .25s;min-width:0;
+}
+.teach-row input:focus{border-color:var(--amber)}
+.teach-row input::placeholder{color:var(--dim)}
+.teach-btn{
+  background:rgba(255,180,58,.12);border:1px solid rgba(255,180,58,.4);color:var(--amber);
+  border-radius:9px;padding:10px 16px;font-weight:700;font-size:.8rem;transition:all .25s;white-space:nowrap;
+}
+.teach-btn:hover{background:rgba(255,180,58,.22);transform:translateY(-1px)}
+.pro-note{font-size:.82rem;color:var(--muted);margin-top:13px;line-height:1.55}
+.pro-note b{color:var(--amber)}
+
+/* ---------- pricing ---------- */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:900px;margin:0 auto;align-items:stretch}
+.plan{
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:38px 34px;display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;position:relative;
+}
+.plan:hover{transform:translateY(-6px)}
+.plan-free:hover{box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.plan-pro{
+  background:linear-gradient(var(--panel2),var(--panel2)) padding-box,var(--grad-hot) border-box;
+  border:1.6px solid transparent;
+  box-shadow:0 24px 70px rgba(255,91,58,.16);
+}
+.plan-pro:hover{box-shadow:0 30px 80px rgba(255,91,58,.28)}
+.pop-badge{
+  position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+  background:var(--grad-hot);color:#2a0d05;font-family:'JetBrains Mono';font-weight:700;font-size:.68rem;
+  letter-spacing:.14em;padding:7px 18px;border-radius:100px;white-space:nowrap;box-shadow:0 8px 24px rgba(255,91,58,.4);
+}
+.plan-name{font-family:'JetBrains Mono';font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.plan-pro .plan-name{color:var(--amber)}
+.plan-price{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.plan-price .amt{font-family:'Unbounded';font-weight:800;font-size:3rem;letter-spacing:-.02em}
+.plan-price .was{font-family:'JetBrains Mono';color:var(--dim);text-decoration:line-through;font-size:1rem}
+.plan-price .per{font-family:'JetBrains Mono';color:var(--dim);font-size:.76rem}
+.plan-tag{color:var(--muted);font-size:.9rem;margin-bottom:26px}
+.plan-pro .plan-tag{color:var(--amber)}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:32px;flex:1}
+.plan li{display:flex;gap:11px;font-size:.93rem;color:var(--muted);align-items:flex-start}
+.plan li svg{flex-shrink:0;margin-top:3px}
+.plan-free li svg{color:var(--cyan)}
+.plan-pro li{color:#cdd5e4}
+.plan-pro li svg{color:var(--lime)}
+.plan-pro li b{color:var(--ink)}
+.plan-note{font-family:'JetBrains Mono';font-size:.68rem;color:var(--dim);text-align:center;margin-top:14px}
+.save-tag{
+  display:inline-block;font-family:'JetBrains Mono';font-size:.64rem;background:rgba(201,247,58,.14);
+  color:var(--lime);border:1px solid rgba(201,247,58,.35);padding:3px 9px;border-radius:100px;margin-left:8px;letter-spacing:.08em;
+}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--bg2);border-block:1px solid var(--line)}
+.faq-list{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
+.faq-item{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:rgba(201,247,58,.4)}
+.faq-q{
+  width:100%;background:none;border:none;color:var(--ink);text-align:left;
+  padding:21px 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;
+  font-family:'Space Grotesk';font-weight:600;font-size:1rem;
+}
+.faq-ic{
+  flex-shrink:0;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+  border:1px solid var(--line-strong);color:var(--muted);font-family:'JetBrains Mono';font-size:1rem;
+  transition:transform .35s,background .35s,color .35s,border-color .35s;
+}
+.faq-item.open .faq-ic{transform:rotate(45deg);background:var(--lime);color:#0a0d13;border-color:var(--lime)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.8,.2,1)}
+.faq-a p{padding:0 24px 22px;color:var(--muted);font-size:.94rem;max-width:640px}
+.faq-a b{color:var(--lime);font-weight:600}
+
+/* ---------- final CTA ---------- */
+.final{padding:110px 0;position:relative;overflow:hidden}
+.final-box{
+  position:relative;border-radius:22px;padding:74px 40px;text-align:center;overflow:hidden;
+  background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--grad-cool) border-box;
+  border:1.6px solid transparent;
+}
+.final-wave{position:absolute;inset:0;display:flex;align-items:flex-end;gap:5px;padding:0 10px;opacity:.14;pointer-events:none}
+.final-wave i{flex:1;background:var(--grad-cool);border-radius:3px 3px 0 0;animation:fwave 1.4s ease-in-out infinite alternate}
+@keyframes fwave{from{transform:scaleY(.35)}to{transform:scaleY(1)}}
+.final-box h2{font-family:'Unbounded';font-weight:800;font-size:clamp(1.7rem,3.8vw,2.7rem);letter-spacing:-.02em;margin-bottom:14px;position:relative}
+.final-box .fs{color:var(--muted);max-width:480px;margin:0 auto 34px;position:relative}
+.final .cta-row{justify-content:center;margin-bottom:0;position:relative}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);background:var(--bg);padding:64px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:52px}
+.foot-brand p{color:var(--dim);font-size:.9rem;margin-top:16px;max-width:260px}
+.foot-h{font-family:'JetBrains Mono';font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:18px}
+.foot-links{display:flex;flex-direction:column;gap:11px;font-size:.92rem;color:var(--muted)}
+.foot-links a{transition:color .25s,transform .25s;display:inline-block}
+.foot-links a:hover{color:var(--lime);transform:translateX(3px)}
+.socials{display:flex;gap:11px}
+.socials a{
+  width:40px;height:40px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;
+  color:var(--muted);transition:all .25s;
+}
+.socials a:hover{color:#0a0d13;background:var(--lime);border-color:var(--lime);transform:translateY(-3px)}
+.foot-bottom{
+  border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;align-items:center;
+  gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono';font-size:.72rem;color:var(--dim);
+}
+.foot-bottom .fb-link{color:var(--cyan);transition:color .25s}
+.foot-bottom .fb-link:hover{color:var(--lime)}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);z-index:3000;
+  background:#151d31;border:1px solid var(--line-strong);border-left:3px solid var(--lime);
+  border-radius:11px;padding:14px 22px;font-family:'JetBrains Mono';font-size:.8rem;color:var(--ink);
+  box-shadow:0 18px 50px rgba(0,0,0,.55);opacity:0;transition:opacity .35s,transform .35s;max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- modals ---------- */
+.modal-root{
+  position:fixed;inset:0;z-index:2500;display:flex;align-items:center;justify-content:center;
+  padding:24px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s ease,visibility .3s ease;
+}
+.modal-root.open{opacity:1;visibility:visible;pointer-events:auto}
+.modal-backdrop{
+  position:absolute;inset:0;background:rgba(6,8,14,.72);backdrop-filter:blur(10px);
+}
+.modal{
+  position:relative;width:100%;max-width:440px;max-height:min(92vh,720px);overflow:auto;
+  background:linear-gradient(165deg,var(--panel2),var(--panel));
+  border:1px solid var(--line-strong);border-radius:20px;
+  box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.03) inset;
+  padding:30px 28px 26px;transform:translateY(18px) scale(.97);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.modal-root.open .modal{transform:none}
+.modal-close{
+  position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;
+  border:1px solid var(--line-strong);background:rgba(16,22,36,.7);color:var(--muted);
+  display:grid;place-items:center;transition:color .25s,border-color .25s,background .25s;
+}
+.modal-close:hover{color:var(--ink);border-color:var(--lime);background:var(--lime-soft)}
+.modal-kicker{
+  display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono';font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:10px;
+}
+.modal-title{
+  font-family:'Unbounded';font-weight:800;font-size:1.35rem;letter-spacing:-.02em;
+  line-height:1.2;margin-bottom:8px;padding-right:40px;
+}
+.modal-sub{color:var(--muted);font-size:.92rem;margin-bottom:24px;line-height:1.5}
+.modal-form{display:flex;flex-direction:column;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-family:'JetBrains Mono';font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.field input{
+  width:100%;background:#0b0f1a;border:1px solid var(--line-strong);border-radius:11px;
+  color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:.95rem;
+  padding:13px 14px;outline:none;transition:border-color .25s,box-shadow .25s;
+}
+.field input::placeholder{color:var(--dim)}
+.field input:focus{border-color:rgba(201,247,58,.55);box-shadow:0 0 0 3px rgba(201,247,58,.12)}
+.field input.invalid{border-color:rgba(255,91,58,.65);box-shadow:0 0 0 3px rgba(255,91,58,.12)}
+.field-hint{font-size:.78rem;color:var(--dim);margin-top:2px}
+.modal .btn{width:100%}
+.modal-pro-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px;padding-right:40px}
+.modal-pro-head .modal-title{margin-bottom:0;padding-right:0}
+.life-badge{
+  font-family:'JetBrains Mono';font-weight:700;font-size:.62rem;letter-spacing:.12em;
+  background:var(--grad-hot);color:#2a0d05;padding:5px 10px;border-radius:7px;
+}
+.modal-price{display:flex;align-items:baseline;gap:12px;margin:18px 0 4px}
+.modal-price .amt{font-family:'Unbounded';font-weight:800;font-size:2.6rem;letter-spacing:-.02em}
+.modal-price .was{font-family:'JetBrains Mono';color:var(--dim);text-decoration:line-through;font-size:1rem}
+.modal-price-note{font-family:'JetBrains Mono';font-size:.74rem;color:var(--muted);margin-bottom:22px}
+.modal-divider{height:1px;background:var(--line);margin:0 0 20px}
+.pay-label{font-weight:700;font-size:.95rem;margin-bottom:12px}
+.pay-card{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:13px;
+  background:#0b0f1a;border:1px solid rgba(63,216,255,.45);
+  box-shadow:0 0 0 1px rgba(63,216,255,.08);
+}
+.pay-icon{
+  width:40px;height:40px;border-radius:11px;flex-shrink:0;display:grid;place-items:center;
+  background:rgba(63,216,255,.1);border:1px solid rgba(63,216,255,.28);color:var(--cyan);
+}
+.pay-card strong{display:block;font-size:.98rem;margin-bottom:2px}
+.pay-card span{font-family:'JetBrains Mono';font-size:.78rem;color:var(--muted)}
+.how-box{
+  margin-top:18px;padding:16px 16px 14px;border-radius:13px;
+  background:rgba(255,180,58,.06);border:1px solid rgba(255,180,58,.28);
+}
+.how-box h4{font-size:.9rem;font-weight:700;margin-bottom:10px;color:var(--amber)}
+.how-box ol{margin:0;padding-left:18px;color:var(--muted);font-size:.88rem;display:flex;flex-direction:column;gap:6px}
+.how-box ol b{color:var(--ink);font-weight:600}
+.modal-wa{margin-top:18px}
+.btn-wa{
+  background:#1fad5f;color:#fff;box-shadow:0 4px 24px rgba(31,173,95,.28);
+}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(31,173,95,.4);background:#22c26a}
+.modal-secure{
+  margin-top:14px;text-align:center;font-family:'JetBrains Mono';font-size:.68rem;color:var(--dim);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+body.modal-open{overflow:hidden}
+@media(max-width:540px){
+  .modal{padding:26px 20px 22px;border-radius:16px}
+  .modal-title{font-size:1.2rem}
+  .modal-price .amt{font-size:2.2rem}
+}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media(max-width:1024px){
+  .hero-grid-inner{grid-template-columns:1fr;gap:70px}
+  .stage-col{max-width:580px;margin:0 auto;width:100%}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+  .demo-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{
+    position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(10,13,19,.97);backdrop-filter:blur(16px);
+    flex-direction:column;padding:28px 24px;gap:22px;border-bottom:1px solid var(--line);
+    transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .35s ease;
+  }
+  .nav-links.open{transform:none;opacity:1;pointer-events:auto}
+  .burger{display:flex !important}
+  .nav-cta .btn{display:none}
+  .steps{grid-template-columns:1fr;gap:20px}
+  .step-arrow{display:none}
+  .price-grid{grid-template-columns:1fr}
+  .sec{padding:74px 0}
+  .deck{height:250px}
+  .hero{padding-top:calc(var(--nav-h) + 32px)}
+}
+@media(max-width:540px){
+  .feat-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .final-box{padding:56px 22px}
+  .plan{padding:30px 24px}
+  .stage{transform:none}
+  .heard{font-size:.72rem;padding:8px 13px}
+}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:1px solid var(--line-strong);border-radius:9px;padding:11px 10px;width:42px}
+.burger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .rv{opacity:1;transform:none}
+  .marquee-track{animation:none;flex-wrap:wrap;width:auto}
+  .in .conf-bar i{width:98%}
+}
+</style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar" id="navbar">
-    <div class="navbar-inner">
-      <a href="#" class="logo">🎙️ VoxSlide AI</a>
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
-      <div class="nav-actions">
-        <button class="btn btn-primary btn-sm" data-modal="download">Download Free</button>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-          <span></span><span></span><span></span>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo" aria-label="VoxSlide AI home">
+      <span class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="9" width="3" height="6" rx="1.5" fill="#c9f73a"/><rect x="8" y="5" width="3" height="14" rx="1.5" fill="#c9f73a"/><rect x="13" y="7.5" width="3" height="9" rx="1.5" fill="#3fd8ff"/><rect x="18" y="10" width="3" height="4" rx="1.5" fill="#3fd8ff"/></svg>
+      </span>
+      VoxSlide<span class="ai">AI</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-primary btn-sm" data-download>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+        Download Free
+      </button>
+      <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-grid"></div>
+    <div class="hero-glow-a"></div>
+    <div class="hero-glow-b"></div>
+    <div class="hero-glow-c"></div>
+  </div>
+  <div class="wrap hero-grid-inner">
+    <div class="hero-copy">
+      <span class="eyebrow rv"><span class="dot-live"></span> v1.2 · live for Windows</span>
+      <h1 class="rv" style="--d:.08s">Present hands-free.<br>Your <span class="hl">voice</span> is the clicker.</h1>
+      <p class="hero-sub rv" style="--d:.16s">VoxSlide AI hears <strong>“next slide”</strong> or <strong>“go back”</strong> and flips your deck in under a second. No clicker, no phone, no extra hardware — just you and the room. Works with <strong>PowerPoint</strong>, <strong>Google Slides</strong> and <strong>Canva</strong>.</p>
+      <div class="cta-row rv" style="--d:.24s">
+        <button class="btn btn-primary btn-lg" data-download>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+          Download Free
         </button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#features" class="mobile-nav-link">Features</a>
-    <a href="#pricing" class="mobile-nav-link">Pricing</a>
-    <a href="#faq" class="mobile-nav-link">FAQ</a>
-    <button class="btn btn-primary" data-modal="download">Download Free</button>
-  </div>
-
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-orb"></div>
-    <div class="hero-content fade-up">
-      <div class="badge">🎙️ World's First AI Hands-Free Slide Controller</div>
-      <h1>
-        Present Hands-Free.<br>
-        <span class="gradient-text">Control Slides With Your Voice.</span>
-      </h1>
-      <p class="hero-sub">
-        No clicker. No phone. No hardware. Say next slide and watch it move.
-        Works with PowerPoint, Google Slides, Canva and more.
-      </p>
-      <div class="hero-buttons">
-        <button class="btn btn-primary" data-modal="download">⬇ Download Free</button>
-        <button class="btn btn-outline" data-modal="payment">💬 Get Pro — $29</button>
-      </div>
-      <div class="trust-row">
-        <span class="trust-pill">✅ No Setup</span>
-        <span class="trust-pill">🔜 Offline Mode Soon — Pro</span>
-        <span class="trust-pill">✅ Windows 10/11</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section id="how-it-works">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Dead Simple to Use</h2>
-        <p>Up and running in under 60 seconds</p>
-      </div>
-      <div class="steps-grid">
-        <div class="step-card fade-up">
-          <div class="step-number">01</div>
-          <div class="step-icon">📥</div>
-          <h3>Download &amp; Open</h3>
-          <p>Double click the exe. No Python, no installation, no technical setup required.</p>
-        </div>
-        <div class="step-card fade-up">
-          <div class="step-number">02</div>
-          <div class="step-icon">🎙️</div>
-          <h3>Click Start Listening</h3>
-          <p>Hit the button. VoxSlide calibrates your mic in 2 seconds automatically.</p>
-        </div>
-        <div class="step-card fade-up">
-          <div class="step-number">03</div>
-          <div class="step-icon">🗣️</div>
-          <h3>Just Speak &amp; Present</h3>
-          <p>Say next or go back. Your slide moves instantly. No hands needed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Features -->
-  <section id="features">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Everything You Need to Own the Room</h2>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card fade-up">
-          <div class="feature-icon">🎯</div>
-          <h3>Accurate Voice Detection</h3>
-          <p>Recognizes natural speech in real rooms with background noise</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="feature-icon">⚡</div>
-          <h3>Under 1 Second Response</h3>
-          <p>Voice to slide change in less than a second every time</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="feature-icon">🖥️</div>
-          <h3>Universal Compatibility</h3>
-          <p>PowerPoint, Google Slides, Canva, PDF — anything with arrow keys</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="feature-icon">🎚️</div>
-          <h3>Adjustable Sensitivity</h3>
-          <p>Mic sensitivity slider adapts to quiet rooms or loud venues</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="feature-icon">🔌</div>
-          <h3>Zero Hardware</h3>
-          <p>Just your laptop mic. No Bluetooth clicker, no dongle, nothing</p>
-        </div>
-        <div class="feature-card fade-up">
-          <div class="feature-icon">🔒</div>
-          <h3>Private by Design</h3>
-          <p>Audio processed instantly and discarded. Never recorded or stored</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section id="pricing">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Simple Pricing. No Surprises.</h2>
-      </div>
-      <div class="pricing-grid">
-        <div class="pricing-card fade-up">
-          <span class="pricing-badge free">Free Forever</span>
-          <div class="pricing-price">$0</div>
-          <p class="pricing-sub">No credit card needed</p>
-          <ul class="pricing-features">
-            <li class="yes">✅ Full voice slide control</li>
-            <li class="yes">✅ All presentation apps</li>
-            <li class="yes">✅ Adjustable mic sensitivity</li>
-            <li class="no">❌ 10 minute session limit</li>
-            <li class="no">❌ Custom trigger words</li>
-            <li class="no">❌ Priority support</li>
-          </ul>
-          <button class="btn btn-outline" data-modal="download" style="width:100%">Download Free</button>
-        </div>
-        <div class="pricing-card pro fade-up">
-          <span class="pricing-badge pro">⚡ Most Popular</span>
-          <div class="pricing-price">$29 <span class="strike">$49</span></div>
-          <p class="pricing-sub">≈ PKR 8,000 • One-time • Lifetime access</p>
-          <ul class="pricing-features">
-            <li class="yes">✅ Full voice slide control</li>
-            <li class="yes">✅ All presentation apps</li>
-            <li class="yes">✅ Adjustable mic sensitivity</li>
-            <li class="yes">✅ Unlimited session time</li>
-            <li class="yes">✅ Custom trigger words</li>
-            <li class="yes">✅ Priority support + all updates</li>
-          </ul>
-          <button class="btn btn-primary" data-modal="payment" style="width:100%">Get Pro Now →</button>
-          <p class="pricing-note">💬 Key delivered via WhatsApp in 1 hour</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Voice Commands -->
-  <section id="commands">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Just Speak Naturally</h2>
-      </div>
-      <div class="terminal-wrapper fade-up">
-        <div class="terminal">
-          <div class="terminal-bar">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-            <span class="terminal-title">VoxSlide AI — Voice Commands</span>
-          </div>
-          <div class="terminal-body">
-            <span class="cmd">$ VoxSlide AI — Listening...</span><br><br>
-            <span class="label">➡️  NEXT SLIDE</span><br>
-            <span class="phrases">› "next" | "next slide" | "forward" | "advance"</span><br><br>
-            <span class="label">⬅️  PREVIOUS SLIDE</span><br>
-            <span class="phrases">› "back" | "previous" | "go back" | "rewind"</span><br><br>
-            <span class="pro-note">⚡  PRO USERS: Set any custom commands in app settings</span><span class="cursor"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq">
-    <div class="container">
-      <div class="section-header fade-up">
-        <h2>Questions?</h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            Does it work without internet?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Right now, VoxSlide needs an internet connection for voice recognition. Offline mode is coming soon and will be exclusive to Pro users — present confidently even on shaky event WiFi, no connection required.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            Which apps does it support?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Any app that uses arrow keys for navigation — PowerPoint, Google Slides, Keynote, Canva, PDF viewers, Prezi and more.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            Will it work on Mac?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Windows 10 and 11 only right now. Mac version is coming in the next update.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            How do I get my Pro license key?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              After payment, WhatsApp your payment screenshot to us. We verify and send your unique license key within 1 hour. Enter it in the app to unlock Pro instantly.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            Is my voice recorded or stored?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Never. Audio is processed in real-time and immediately discarded. Nothing is stored on our servers.
-            </div>
-          </div>
-        </div>
-        <div class="faq-item fade-up">
-          <button class="faq-question" aria-expanded="false">
-            What if I lose my license key?
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">
-              Just WhatsApp us your payment proof again and we resend it immediately. Lifetime support included.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final-cta fade-up">
-    <h2>Ready to Present Like a Pro?</h2>
-    <p>Join presenters who ditched the clicker.</p>
-    <div class="hero-buttons">
-      <button class="btn btn-primary" data-modal="download">Download Free</button>
-      <button class="btn btn-outline" data-modal="payment">Get Pro →</button>
-    </div>
-    <p class="final-cta-note">Windows 10/11 • Instant download • No signup required</p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-top">
-        <a href="#" class="logo">🎙️ VoxSlide AI</a>
-        <ul class="footer-nav">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-        <div class="footer-social">
-          <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
-          <a href="https://www.linkedin.com/in/mohammad-ahmad786" target="_blank" class="social-icon" aria-label="LinkedIn">in</a>
-          <a href="#" class="social-icon" aria-label="YouTube">▶</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 VoxSlide AI. All rights reserved.</span>
-        <span>Built by Mohammad Ahmad 🚀 Islamabad, Pakistan</span>
-      </div>
-    </div>
-    <div style="text-align:center; padding: 20px 0;">
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLScyznKYjauReMp4ww5Ar0GbpWpmFtKQIAePEJcg6SuxVsZw5A/viewform" 
-     target="_blank" 
-     style="background:#1E293B; color:#4ADE80; border:1px solid #4ADE80; 
-            padding:10px 24px; border-radius:8px; text-decoration:none; 
-            font-size:14px; font-family:Inter,sans-serif;">
-    📝 Give Feedback
-  </a>
-  <p style="color:#475569; font-size:12px; margin-top:8px;">
-    Help us improve VoxSlide AI
-  </p>
-</div>
-  </footer>
-
-  <!-- Email Capture Modal -->
-  <div class="modal-overlay" id="downloadModal">
-    <div class="modal">
-      <button class="modal-close" data-close="downloadModal" aria-label="Close">&times;</button>
-      <div id="downloadFormWrap">
-        <h2>Get VoxSlide AI Free ⬇</h2>
-        <p class="modal-subtitle">Enter your details and download instantly.</p>
-        <form id="downloadForm" novalidate>
-          <div class="form-group" id="fg-name">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" placeholder="Ahmad Khan" autocomplete="name">
-            <span class="form-error">Please enter your full name</span>
-          </div>
-          <div class="form-group" id="fg-email">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email">
-            <span class="form-error">Please enter a valid email</span>
-          </div>
-          <div class="form-group" id="fg-whatsapp">
-            <label for="whatsapp">WhatsApp Number</label>
-            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+92 300 1234567" autocomplete="tel">
-            <p class="form-hint">We send your download link here too</p>
-            <span class="form-error">Please enter your WhatsApp number</span>
-          </div>
-          <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
-            <span class="spinner"></span>
-            <span class="btn-text">Get My Free Download →</span>
-          </button>
-        </form>
-      </div>
-      <div class="success-state" id="downloadSuccess">
-        <div class="success-check">✅</div>
-        <h3>Download starting automatically...</h3>
-        <p>Check your WhatsApp for the link too!</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Payment Modal -->
-  <div class="modal-overlay" id="paymentModal">
-    <div class="modal payment-modal">
-      <button class="modal-close" data-close="paymentModal" aria-label="Close">&times;</button>
-      <div class="payment-header">
-        <h2>⚡ Get VoxSlide AI Pro</h2>
-        <span class="lifetime-badge">LIFETIME</span>
-      </div>
-      <div class="payment-price">
-        <span class="amount">$29</span>
-        <span class="strike">$49</span>
-      </div>
-      <p class="payment-price-sub">≈ PKR 8,000 one-time • Yours forever</p>
-      <div class="divider"></div>
-      <div class="payment-methods">
-        <h3>Choose Payment Method</h3>
-        <div class="payment-card" id="nayapayCard" data-method="nayapay">
-          <span class="payment-card-icon">💜</span>
-          <div class="payment-card-info">
-            <h4>NayaPay</h4>
-            <p id="nayapayNumber">03435050786 — Mohammad Ahmad</p>
-          </div>
-        </div>
-      </div>
-      <div class="payment-instructions" id="paymentInstructions">
-        <div class="info-box">
-          📋 <strong>How to complete your purchase:</strong>
-          <ol>
-            <li>Send PKR 8,000 to the account above</li>
-            <li>Screenshot your payment confirmation</li>
-            <li>WhatsApp the screenshot to +92-3435050786</li>
-            <li>Receive your license key within 1 hour ⚡</li>
-          </ol>
-        </div>
-        <a href="https://wa.me/923435050786?text=Hi!%20I%20just%20paid%20for%20VoxSlide%20AI%20Pro.%20Sending%20payment%20proof%20now." target="_blank" rel="noopener" class="btn btn-whatsapp">
-          📲 Send Payment Proof on WhatsApp
+        <a href="#pricing" class="btn btn-ghost btn-lg">Get Pro — $29
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
         </a>
-        <p class="payment-footer-note">🔒 Manual verification • Key delivered in 1 hour</p>
+      </div>
+      <div class="trust-row rv" style="--d:.32s">
+        <span class="trust-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+          No setup — open &amp; talk
+        </span>
+        <span class="trust-pill dashed">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18"/></svg>
+          Offline mode · soon (Pro)
+        </span>
+        <span class="trust-pill">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          Windows 10 / 11
+        </span>
+      </div>
+      <div class="works-row rv" style="--d:.4s">
+        WORKS WITH:
+        <span class="works-chip">PowerPoint</span>
+        <span class="works-chip">Google Slides</span>
+        <span class="works-chip">Canva</span>
+      </div>
+    </div>
+
+    <div class="stage-col rv" style="--d:.2s">
+      <div class="heard" id="heard">
+        <svg class="mic-ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4"/></svg>
+        heard <span class="q" id="heardTxt">“next slide”</span>
+        <span class="ck">✓</span>
+      </div>
+      <div class="stage">
+        <div class="stage-head">
+          <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+          <span class="stage-title">voxslide · live_deck.pptx</span>
+          <span class="live-pill"><span class="dot-live"></span>LIVE</span>
+        </div>
+        <div class="deck" id="deck">
+          <div class="slide active">
+            <div class="s-eyebrow">VOXSLIDE AI · PITCH</div>
+            <div class="s-title-big">Launch Day.</div>
+            <div class="s-bar"></div>
+          </div>
+          <div class="slide">
+            <div class="s-eyebrow">TRACTION</div>
+            <div class="s-title-big" style="font-size:1.3rem">Decks flipped by voice</div>
+            <div class="s-chart">
+              <i style="height:34%"></i><i style="height:48%"></i><i style="height:42%"></i><i style="height:68%"></i><i class="hot" style="height:96%"></i>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="s-eyebrow">BETA FEEDBACK</div>
+            <div class="s-quote">“I said <em>‘next’</em> and it just… moved. No clicker for the first time in 10 years.”</div>
+            <div class="s-src">— keynote beta tester</div>
+          </div>
+          <div class="slide">
+            <div class="s-eyebrow">ROADMAP</div>
+            <div class="s-title-big" style="font-size:1.3rem">Where we’re going</div>
+            <div class="s-road">
+              <div class="s-stop on"><i></i>Windows</div>
+              <div class="s-stop"><i></i>Offline</div>
+              <div class="s-stop"><i></i>macOS</div>
+            </div>
+          </div>
+          <div class="slide">
+            <div class="s-title-big s-thanks">Thank you<span>.</span></div>
+            <div class="s-bar" style="background:var(--grad-hot)"></div>
+          </div>
+        </div>
+        <div class="deck-foot">
+          <div class="wave" id="wave" aria-hidden="true"></div>
+          <div class="counter mn"><b id="slideNum">01</b> / 05</div>
+        </div>
+      </div>
+      <div class="mic-pill"><span class="dot-live"></span> listening for commands</div>
+      <div class="say-row">
+        <button class="say-btn" data-say="1">🎙 try it — say <span>“next slide”</span></button>
+        <button class="say-btn" data-say="-1">🎙 say <span>“go back”</span></button>
       </div>
     </div>
   </div>
+</section>
 
-  <script>
-    /* ── Config (replace placeholders) ── */
-    const CONFIG = {
-      DOWNLOAD_LINK: 'https://github.com/mohammadaraja786-cmd/voxslide-ai/releases/download/v1.0.0/VoxSlide.AI.exe',
-      NAYAPAY_NUMBER: '03435050786'
-    };
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mqTrack">
+    <div class="mq-item">“NEXT SLIDE” <span class="sep">✦</span> <span class="lm">“GO BACK”</span> <span class="sep">✦</span> “FORWARD” <span class="sep">✦</span> <span class="cy">“REWIND”</span> <span class="sep">✦</span> HANDS-FREE <span class="sep">✦</span> <span class="lm">NO CLICKER</span> <span class="sep">✦</span> JUST TALK <span class="sep">✦</span></div>
+    <div class="mq-item">“NEXT SLIDE” <span class="sep">✦</span> <span class="lm">“GO BACK”</span> <span class="sep">✦</span> “FORWARD” <span class="sep">✦</span> <span class="cy">“REWIND”</span> <span class="sep">✦</span> HANDS-FREE <span class="sep">✦</span> <span class="lm">NO CLICKER</span> <span class="sep">✦</span> JUST TALK <span class="sep">✦</span></div>
+  </div>
+</div>
 
-    /* ── Navbar scroll hide/show ── */
-    const navbar = document.getElementById('navbar');
-    let lastScrollY = window.scrollY;
-    let ticking = false;
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how sec" id="how">
+  <div class="wrap">
+    <div class="sec-eyebrow rv">01 · how it works</div>
+    <h2 class="sec-title rv" style="--d:.06s" data-scramble>From download to “next slide” in 20 seconds.</h2>
+    <p class="sec-sub rv" style="--d:.12s">No pairing. No drivers. No “raise your phone to pair” ritual. Three steps, then you never think about it again.</p>
+    <div class="steps">
+      <div class="step rv" style="--acc:#c9f73a;--d:0s">
+        <div class="step-num">01</div>
+        <div class="step-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+        </div>
+        <h3>Download &amp; Open</h3>
+        <p>Grab the installer for Windows. No account, no setup wizard — it opens ready to listen.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step rv" style="--acc:#3fd8ff;--d:.12s">
+        <div class="step-num">02</div>
+        <div class="step-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v4"/></svg>
+        </div>
+        <h3>Hit Start Listening</h3>
+        <p>One click warms up the mic. The status pill goes live and quietly waits for your voice.</p>
+        <span class="step-arrow">→</span>
+      </div>
+      <div class="step rv" style="--acc:#ff5b3a;--d:.24s">
+        <div class="step-num">03</div>
+        <div class="step-ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg>
+        </div>
+        <h3>Speak &amp; Present</h3>
+        <p>Say “next” and the deck moves. Walk, gesture, hold the room — your hands are free.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    function onScroll() {
-      const currentY = window.scrollY;
-      if (currentY > lastScrollY && currentY > 80) {
-        navbar.classList.add('hidden');
-      } else {
-        navbar.classList.remove('hidden');
-      }
-      lastScrollY = currentY;
-      ticking = false;
+<!-- ============ FEATURES ============ -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-eyebrow rv">02 · features</div>
+    <h2 class="sec-title rv" style="--d:.06s" data-scramble>Built for the stage, not the spec sheet.</h2>
+    <p class="sec-sub rv" style="--d:.12s">Everything is tuned for one moment: you, mid-sentence, in front of people — and the deck keeping up without a glitch.</p>
+    <div class="feat-grid">
+      <div class="feat rv" style="--acc:#c9f73a;--d:0s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></div>
+        <h3>Accurate Voice Detection</h3>
+        <p>Tuned on presenter speech — catches commands mid-sentence, over room noise, from across the stage.</p>
+        <div class="feat-extra">
+          <div class="conf-bar"><i></i></div>
+          <div class="conf-lab"><span>avg. confidence</span><b>0.98</b></div>
+        </div>
+      </div>
+      <div class="feat rv" style="--acc:#3fd8ff;--d:.08s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+        <h3>Under 1-Second Response</h3>
+        <p>From syllable to slide flip in a blink. The audience never sees the seam.</p>
+        <div class="feat-extra">
+          <div class="lat-row"><span>0s</span><div class="lat-bar"><i></i></div><b>0.4s avg</b></div>
+        </div>
+      </div>
+      <div class="feat rv" style="--acc:#ff5b3a;--d:.16s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg></div>
+        <h3>Universal Compatibility</h3>
+        <p>PowerPoint, Google Slides, Canva — if your arrow keys can drive it, VoxSlide can too.</p>
+      </div>
+      <div class="feat rv" style="--acc:#ffb43a;--d:.08s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/><circle cx="9" cy="7" r="2.4" fill="#101624"/><circle cx="15" cy="12" r="2.4" fill="#101624"/><circle cx="7" cy="17" r="2.4" fill="#101624"/></svg></div>
+        <h3>Adjustable Sensitivity</h3>
+        <p>Whisper-quiet studio or packed conference hall — dial the trigger threshold to the room. Go on, try it:</p>
+        <div class="feat-extra sens-wrap">
+          <input type="range" id="sensSlider" min="0" max="100" value="60" aria-label="Sensitivity demo">
+          <span class="sens-lab" id="sensLab">Balanced</span>
+        </div>
+      </div>
+      <div class="feat rv" style="--acc:#3fd8ff;--d:.16s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0v0M4 8h16M12 8v13m-4 0h8"/><path d="M3 3l18 18" stroke="#ff5b3a" stroke-width="2.2"/></svg></div>
+        <h3>Zero Hardware</h3>
+        <p>No clicker to charge, no phone to pair, no dongle to leave behind in a hotel room.</p>
+      </div>
+      <div class="feat rv" style="--acc:#c9f73a;--d:.24s">
+        <div class="feat-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v5.2c0 5-3.4 9.4-8 11.3-4.6-1.9-8-6.3-8-11.3V5.5L12 2z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+        <h3>Private by Design</h3>
+        <p>Audio is processed live to catch the command — then gone. Never recorded, never stored.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VOICE DEMO ============ -->
+<section class="demo sec" id="demo">
+  <div class="wrap">
+    <div class="sec-eyebrow rv">03 · live demo</div>
+    <h2 class="sec-title rv" style="--d:.06s" data-scramble>Talk to it. Watch it listen.</h2>
+    <p class="sec-sub rv" style="--d:.12s">This is the actual command set. Tap a chip to fire it at the console — or teach Pro your own trigger word.</p>
+    <div class="demo-grid">
+      <div class="term rv">
+        <div class="term-bar">
+          <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+          <span class="stage-title">voxslide — live log</span>
+        </div>
+        <div class="term-body" id="termBody"></div>
+        <div class="term-input"><span>●</span> listening <span class="cursor"></span></div>
+      </div>
+      <div class="side-panel">
+        <div class="panel-card rv" style="--d:.1s">
+          <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3m8-6l4 3-4 3M13 5l-2 14"/></svg>Built-in commands</h4>
+          <div class="cmd-chips" id="cmdChips">
+            <button class="chip" data-word="next" data-dir="1">“next”</button>
+            <button class="chip" data-word="back" data-dir="-1">“back”</button>
+            <button class="chip" data-word="forward" data-dir="2">“forward”</button>
+            <button class="chip" data-word="rewind" data-dir="-2">“rewind”</button>
+          </div>
+          <div class="tracker">
+            <div class="tracker-top"><span>deck position</span><b id="trackNum">slide 7 / 18</b></div>
+            <div class="tracker-bar"><i id="trackBar" style="width:38%"></i></div>
+          </div>
+        </div>
+        <div class="panel-card rv" style="--d:.2s;border-color:rgba(255,180,58,.28)">
+          <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffb43a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z"/></svg>Custom trigger words <span class="mn" style="font-size:.58rem;background:var(--grad-hot);color:#2a0d05;padding:2px 7px;border-radius:4px;letter-spacing:.08em">PRO</span></h4>
+          <div class="teach-row">
+            <input type="text" id="teachInput" maxlength="14" placeholder="e.g. abracadabra" aria-label="Custom trigger word">
+            <button class="teach-btn" id="teachBtn">Teach it</button>
+          </div>
+          <p class="pro-note">Pro users can set their own trigger words — say <b>“warp”</b>, <b>“zap”</b>, or your lucky phrase and the deck obeys.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="sec-eyebrow rv">04 · pricing</div>
+    <h2 class="sec-title rv" style="--d:.06s" data-scramble>One voice. One payment. Yours forever.</h2>
+    <p class="sec-sub rv" style="--d:.12s">Start free. Upgrade once, keep it for life. No subscriptions hiding in the fine print.</p>
+    <div class="price-grid">
+      <div class="plan plan-free rv">
+        <div class="plan-name">Free Forever</div>
+        <div class="plan-price"><span class="amt">$0</span><span class="per">/ forever</span></div>
+        <p class="plan-tag">Try the magic — no card, no clock.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Full voice control — next / back / forward / rewind</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>10-minute sessions</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Works with PowerPoint, Google Slides &amp; Canva</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Adjustable sensitivity</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Community support</li>
+        </ul>
+        <button class="btn btn-ghost btn-lg" data-download>Download Free</button>
+        <p class="plan-note">windows 10 / 11 · no account needed</p>
+      </div>
+      <div class="plan plan-pro rv" style="--d:.12s">
+        <span class="pop-badge">★ MOST POPULAR</span>
+        <div class="plan-name">Pro · Lifetime</div>
+        <div class="plan-price"><span class="amt">$29</span><span class="was">$49</span><span class="per">one-time</span><span class="save-tag">SAVE 40%</span></div>
+        <p class="plan-tag">For people who present for real. Pay once, own it forever.</p>
+        <ul>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><span><b>Everything in Free</b>, plus:</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><b>Unlimited sessions</b> — talk as long as the room lets you</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><b>Custom trigger words</b> — teach it your own commands</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><b>Offline Mode</b> — shipping soon, included free</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg><b>Priority support</b> over WhatsApp</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Lifetime license · every future update</li>
+        </ul>
+        <button class="btn btn-hot btn-lg" data-buy>Get Pro — $29
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </button>
+        <p class="plan-note">license delivered via whatsapp · within 1 hour</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq sec" id="faq">
+  <div class="wrap">
+    <div class="sec-eyebrow rv">05 · faq</div>
+    <h2 class="sec-title rv" style="--d:.06s" data-scramble>Questions, answered out loud.</h2>
+    <p class="sec-sub rv" style="--d:.12s">Everything people ask before they ditch their clicker.</p>
+    <div class="faq-list">
+      <div class="faq-item rv">
+        <button class="faq-q" aria-expanded="false">Can I use VoxSlide offline?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Recognition currently runs with a fast connection assist, and a fully <b>Offline Mode is shipping soon as part of Pro</b> — your one-time $29 covers it at no extra cost.</p></div>
+      </div>
+      <div class="faq-item rv" style="--d:.05s">
+        <button class="faq-q" aria-expanded="false">Which apps does it control?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p><b>PowerPoint, Google Slides and Canva</b> out of the box. Under the hood, VoxSlide sends the same arrow-key presses a physical clicker would — so most deck tools simply work.</p></div>
+      </div>
+      <div class="faq-item rv" style="--d:.1s">
+        <button class="faq-q" aria-expanded="false">Does it work on Mac?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Not yet — VoxSlide runs on <b>Windows 10 and 11</b> today. A macOS build is on the roadmap and next in line.</p></div>
+      </div>
+      <div class="faq-item rv" style="--d:.15s">
+        <button class="faq-q" aria-expanded="false">How do I get my Pro license?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Your license key is delivered personally over <b>WhatsApp — usually within 1 hour</b> of purchase. A human confirms it, so you’re never stuck waiting on a broken email link.</p></div>
+      </div>
+      <div class="faq-item rv" style="--d:.2s">
+        <button class="faq-q" aria-expanded="false">What happens to my voice?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Nothing leaves your session. Audio is processed in real time to catch the command and immediately discarded — <b>never recorded, never stored, never used for training</b>.</p></div>
+      </div>
+      <div class="faq-item rv" style="--d:.25s">
+        <button class="faq-q" aria-expanded="false">What if I lose my license key?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Message us on WhatsApp or email with your purchase details and we’ll <b>re-send your key</b>. Lifetime means lifetime — we’ve got you.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <div class="final-box rv">
+      <div class="final-wave" id="finalWave" aria-hidden="true"></div>
+      <h2>Ready to present like a pro?</h2>
+      <p class="fs">No clicker to charge. No phone to juggle. Just you, the room, and a deck that listens.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary btn-lg" data-download>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+          Download Free
+        </button>
+        <button class="btn btn-hot btn-lg" data-buy>Get Pro — $29</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="9" width="3" height="6" rx="1.5" fill="#c9f73a"/><rect x="8" y="5" width="3" height="14" rx="1.5" fill="#c9f73a"/><rect x="13" y="7.5" width="3" height="9" rx="1.5" fill="#3fd8ff"/><rect x="18" y="10" width="3" height="4" rx="1.5" fill="#3fd8ff"/></svg>
+          </span>
+          VoxSlide<span class="ai">AI</span>
+        </a>
+        <p>The voice-controlled slide clicker for Windows. Say it, and the deck moves.</p>
+      </div>
+      <div>
+        <div class="foot-h">Product</div>
+        <div class="foot-links">
+          <a href="#how">How it works</a>
+          <a href="#features">Features</a>
+          <a href="#demo">Live demo</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Support</div>
+        <div class="foot-links">
+          <a href="#faq">FAQ</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScyznKYjauReMp4ww5Ar0GbpWpmFtKQIAePEJcg6SuxVsZw5A/viewform" target="_blank" rel="noopener noreferrer">Send feedback ↗</a>
+          <a href="mailto:hello@voxslide.ai?subject=VoxSlide%20License">License help</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Follow the build</div>
+        <div class="socials">
+          <a href="#" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L2.8 2h6.4l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.4-1C16.5 3.6 12 3.6 12 3.6s-4.5 0-7.7.3c-.5.1-1.5.1-2.4 1-.7.7-.9 2.3-.9 2.3S.8 9.1.8 11v1.8c0 1.9.2 3.8.2 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.3 7.6.3s4.5 0 7.7-.4c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8V11c0-1.9-.2-3.8-.2-3.8zM9.7 15V8.4l6.2 3.3-6.2 3.3z"/></svg></a>
+          <a href="#" aria-label="Discord"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.2a18 18 0 0 0-5.5 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9 .8 13.6 1.4 18.1a19.9 19.9 0 0 0 6 3l1.3-2a12.8 12.8 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.7.4-1.4.7-2.1 1l1.3 2a19.8 19.8 0 0 0 6-3c.7-5.2.2-9.7-2.8-13.7zM8.7 15.3c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.3"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Voxslide ai. All rights reserved. Founded by Mohammad Ahmad.</span>
+      <a class="fb-link" href="https://docs.google.com/forms/d/e/1FAIpQLScyznKYjauReMp4ww5Ar0GbpWpmFtKQIAePEJcg6SuxVsZw5A/viewform" target="_blank" rel="noopener noreferrer">send feedback →</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ DOWNLOAD MODAL ============ -->
+<div class="modal-root" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="dlTitle" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal">
+    <button type="button" class="modal-close" data-close-modal aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-kicker">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+      Free forever
+    </div>
+    <h3 class="modal-title" id="dlTitle">Get VoxSlide AI Free</h3>
+    <p class="modal-sub">Enter your details and download instantly.</p>
+    <form class="modal-form" id="downloadForm" novalidate>
+      <div class="field">
+        <label for="dlName">Full Name</label>
+        <input id="dlName" name="name" type="text" autocomplete="name" placeholder="Ahmad Khan" required>
+      </div>
+      <div class="field">
+        <label for="dlEmail">Email</label>
+        <input id="dlEmail" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+      </div>
+      <div class="field">
+        <label for="dlPhone">WhatsApp Number</label>
+        <input id="dlPhone" name="phone" type="tel" autocomplete="tel" placeholder="+92 300 1234567" required>
+        <span class="field-hint">We send your download link here too</span>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">
+        Get My Free Download
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ PRO / BUY MODAL ============ -->
+<div class="modal-root" id="buyModal" role="dialog" aria-modal="true" aria-labelledby="buyTitle" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal">
+    <button type="button" class="modal-close" data-close-modal aria-label="Close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-kicker">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+      Get VoxSlide AI
+    </div>
+    <div class="modal-pro-head">
+      <h3 class="modal-title" id="buyTitle">Pro</h3>
+      <span class="life-badge">LIFETIME</span>
+    </div>
+    <div class="modal-price">
+      <span class="amt">$29</span>
+      <span class="was">$49</span>
+    </div>
+    <p class="modal-price-note">≈ PKR 8,000 one-time · Yours forever</p>
+    <div class="modal-divider"></div>
+    <div class="pay-label">Choose Payment Method</div>
+    <div class="pay-card">
+      <div class="pay-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-6.7-4.35-9.33-7.4C.8 11.4 1.1 8.2 3.4 6.5c1.9-1.4 4.5-1.1 6.1.6L12 9.3l2.5-2.2c1.6-1.7 4.2-2 6.1-.6 2.3 1.7 2.6 4.9.73 7.1C18.7 16.65 12 21 12 21z"/></svg>
+      </div>
+      <div>
+        <strong>NayaPay</strong>
+        <span>03435050786 — Mohammad Ahmad</span>
+      </div>
+    </div>
+    <div class="how-box">
+      <h4>How to complete your purchase</h4>
+      <ol>
+        <li>Send <b>PKR 8,000</b> to the account above</li>
+        <li>Screenshot your payment confirmation</li>
+        <li>WhatsApp the screenshot to <b>+92-3435050786</b></li>
+        <li>Receive your license key within 1 hour</li>
+      </ol>
+    </div>
+    <a class="btn btn-wa btn-lg modal-wa" id="waProof" href="https://wa.me/923435050786?text=Hi%20VoxSlide%20—%20I%27ve%20paid%20for%20Pro%20Lifetime.%20Here%27s%20my%20payment%20proof." target="_blank" rel="noopener noreferrer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.1-.3.2-.6.1-1.6-.6-2.9-1.5-3.9-2.9-.2-.3 0-.4.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.2.8 3 .7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 .2 10.7.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 15 3.8 13.5 3.8 12 3.8 7.5 7.5 3.8 12 3.8S20.2 7.5 20.2 12 16.5 20.2 12 20.2z"/></svg>
+      Send Payment Proof on WhatsApp
+    </a>
+    <p class="modal-secure">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+      Manual verification · Key delivered in 1 hour
+    </p>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DOWNLOAD_URL = 'https://github.com/ahmadships/voxslide-ai/releases/latest/download/VoxSlideAI_Setup.exe';
+  var SHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5-biks2E34JKNb6O-g-q9RX8S38TJUndglXZAcVawRKpYZdCrwURX0RvSrlya2OOL/exec';
+  var WHATSAPP_BUY = 'https://wa.me/923435050786?text=' + encodeURIComponent("Hi VoxSlide — I've paid for Pro Lifetime. Here's my payment proof.");
+
+  /* ---------- nav ---------- */
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  }, {passive:true});
+  nav.classList.toggle('scrolled', window.scrollY > 12);
+  burger.addEventListener('click', function(){
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ burger.classList.remove('open'); navLinks.classList.remove('open'); });
+  });
+
+  /* ---------- toast ---------- */
+  var toastEl = null, toastTimer = null;
+  function toast(msg){
+    if(!toastEl){
+      toastEl = document.createElement('div');
+      toastEl.className = 'toast';
+      document.body.appendChild(toastEl);
     }
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 3000);
+  }
+  /* ---------- modals ---------- */
+  var downloadModal = document.getElementById('downloadModal');
+  var buyModal = document.getElementById('buyModal');
+  var downloadForm = document.getElementById('downloadForm');
+  var lastFocus = null;
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        requestAnimationFrame(onScroll);
-        ticking = true;
-      }
-    }, { passive: true });
+  function openModal(el){
+    lastFocus = document.activeElement;
+    el.hidden = false;
+    requestAnimationFrame(function(){ el.classList.add('open'); });
+    document.body.classList.add('modal-open');
+    var focusable = el.querySelector('input, button, a');
+    if(focusable) focusable.focus();
+  }
+  function closeModal(el){
+    el.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    setTimeout(function(){
+      if(!el.classList.contains('open')) el.hidden = true;
+    }, 300);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function bindModal(el){
+    el.querySelectorAll('[data-close-modal]').forEach(function(n){
+      n.addEventListener('click', function(){ closeModal(el); });
+    });
+  }
+  bindModal(downloadModal);
+  bindModal(buyModal);
 
-    /* ── Mobile menu ── */
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+  document.querySelectorAll('[data-download]').forEach(function(b){
+    b.addEventListener('click', function(){ openModal(downloadModal); });
+  });
+  document.querySelectorAll('[data-buy]').forEach(function(b){
+    b.addEventListener('click', function(){ openModal(buyModal); });
+  });
 
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    if(downloadModal.classList.contains('open')) closeModal(downloadModal);
+    if(buyModal.classList.contains('open')) closeModal(buyModal);
+  });
+
+  var waProof = document.getElementById('waProof');
+  if(waProof) waProof.href = WHATSAPP_BUY;
+
+  function markInvalid(input, bad){
+    input.classList.toggle('invalid', !!bad);
+  }
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function validPhone(v){ return v.replace(/[^\d+]/g,'').length >= 10; }
+
+  function triggerDownload(){
+    var a = document.createElement('a');
+    a.href = DOWNLOAD_URL;
+    a.setAttribute('download', 'VoxSlideAI_Setup.exe');
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  /* Form + hidden iframe — Google Apps Script drops many fetch/XHR POSTs after redirect */
+  function submitToSheet(name, email, whatsapp){
+    var frameName = 'voxsheet_' + Date.now();
+    var iframe = document.createElement('iframe');
+    iframe.name = frameName;
+    iframe.title = 'sheet';
+    iframe.style.cssText = 'position:absolute;width:0;height:0;border:0;visibility:hidden';
+    document.body.appendChild(iframe);
+
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SHEET_SCRIPT_URL;
+    form.target = frameName;
+    form.style.display = 'none';
+
+    var fields = { fullName: name, email: email, whatsapp: whatsapp };
+    Object.keys(fields).forEach(function(key){
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
     });
 
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        mobileMenu.classList.remove('open');
-      });
-    });
+    document.body.appendChild(form);
+    form.submit();
 
-    /* ── Intersection Observer fade-up ── */
-    const fadeEls = document.querySelectorAll('.fade-up');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    setTimeout(function(){
+      form.remove();
+      iframe.remove();
+    }, 8000);
+  }
 
-    fadeEls.forEach(el => fadeObserver.observe(el));
-
-    /* ── Modals ── */
-    function openModal(id) {
-      const overlay = document.getElementById(id);
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+  downloadForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('dlName');
+    var email = document.getElementById('dlEmail');
+    var phone = document.getElementById('dlPhone');
+    var ok = true;
+    if(!name.value.trim()){ markInvalid(name, true); ok = false; } else markInvalid(name, false);
+    if(!validEmail(email.value.trim())){ markInvalid(email, true); ok = false; } else markInvalid(email, false);
+    if(!validPhone(phone.value.trim())){ markInvalid(phone, true); ok = false; } else markInvalid(phone, false);
+    if(!ok){
+      toast('Fill in name, email, and WhatsApp number to continue.');
+      return;
     }
-
-    function closeModal(id) {
-      const overlay = document.getElementById(id);
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.querySelectorAll('[data-modal]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.modal === 'download' ? 'downloadModal' : 'paymentModal';
-        openModal(target);
-      });
-    });
-
-    document.querySelectorAll('[data-close]').forEach(btn => {
-      btn.addEventListener('click', () => closeModal(btn.dataset.close));
-    });
-
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal(overlay.id);
-      });
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay.open').forEach(o => closeModal(o.id));
-      }
-    });
-
-    /* ── Download form ── */
-    const downloadForm = document.getElementById('downloadForm');
-    const downloadFormWrap = document.getElementById('downloadFormWrap');
-    const downloadSuccess = document.getElementById('downloadSuccess');
-    const submitBtn = document.getElementById('submitBtn');
-
-    function validateField(id, testFn) {
-      const group = document.getElementById(id);
-      const input = group.querySelector('input');
-      const valid = testFn(input.value.trim());
-      group.classList.toggle('has-error', !valid);
-      input.classList.toggle('error', !valid);
-      return valid;
-    }
-
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function triggerDownload() {
-      // Method 1: Direct link click
-      const link = document.createElement('a');
-      link.href = 'https://github.com/mohammadaraja786-cmd/voxslide-ai/releases/latest/download/VoxSlideAI_Setup.exe';
-      link.download = 'VoxSlideAI_Setup.exe';
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Method 2: Fallback after 1 second
-      setTimeout(() => {
-        window.open('https://github.com/mohammadaraja786-cmd/voxslide-ai/releases/download/v1.0.0/VoxSlide.AI.exe', '_blank');
-      }, 1000);
-    }
-
-    function saveSubmission(data) {
-      const key = 'voxslide_submissions';
-      const existing = JSON.parse(localStorage.getItem(key) || '[]');
-      existing.push({ ...data, timestamp: new Date().toISOString() });
-      localStorage.setItem(key, JSON.stringify(existing));
-    }
-
-    async function submitToGoogleSheets(name, email, whatsapp) {
-      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxiFScZvlakKO6isLTpLJNKaXgpFU-BUu9-ZD-DCkkjgaU6MmDWKmogr79MX3K6N4bc/exec";
-      
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            fullName: name,
-            email: email,
-            whatsapp: whatsapp
-          })
-        });
-        console.log("Data sent to Google Sheets");
-      } catch(error) {
-        console.log("Sheet error:", error);
-      }
-    }
-
-    function resetDownloadModal() {
-      downloadForm.reset();
-      downloadFormWrap.style.display = 'block';
-      downloadSuccess.classList.remove('show');
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-      document.querySelectorAll('#downloadForm .form-group').forEach(g => {
-        g.classList.remove('has-error');
-        g.querySelector('input')?.classList.remove('error');
-      });
-    }
-
-    document.getElementById('downloadModal').addEventListener('transitionend', (e) => {
-      if (e.target.id === 'downloadModal' && !e.target.classList.contains('open')) {
-        resetDownloadModal();
-      }
-    });
-
-    downloadForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const nameValid = validateField('fg-name', v => v.length >= 2);
-      const emailValid = validateField('fg-email', validateEmail);
-      const whatsappValid = validateField('fg-whatsapp', v => v.length >= 8);
-
-      if (!nameValid || !emailValid || !whatsappValid) return;
-
-      const name = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const whatsapp = document.getElementById('whatsapp').value.trim();
-
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
-
-      saveSubmission({ fullName: name, email, whatsapp });
-      await submitToGoogleSheets(name, email, whatsapp);
-
-      await new Promise(r => setTimeout(r, 1500));
-
-      downloadFormWrap.style.display = 'none';
-      downloadSuccess.classList.add('show');
-      submitBtn.classList.remove('loading');
-
+    var n = name.value.trim(), em = email.value.trim(), ph = phone.value.trim();
+    submitToSheet(n, em, ph);
+    setTimeout(function(){
       triggerDownload();
-    });
+      closeModal(downloadModal);
+      toast('⬇ VoxSlideAI_Setup.exe — download starting. See you on stage!');
+      downloadForm.reset();
+    }, 400);
+  });
 
-    /* ── Payment method selection ── */
-    const nayapayCard = document.getElementById('nayapayCard');
-    const paymentInstructions = document.getElementById('paymentInstructions');
-
-    nayapayCard.addEventListener('click', () => {
-      nayapayCard.classList.add('selected');
-      paymentInstructions.classList.add('show');
-    });
-
-    document.getElementById('paymentModal').addEventListener('transitionend', (e) => {
-      if (e.target.id === 'paymentModal' && !e.target.classList.contains('open')) {
-        nayapayCard.classList.remove('selected');
-        paymentInstructions.classList.remove('show');
+  /* ---------- reveal on scroll ---------- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.hasAttribute('data-scramble')) scramble(e.target);
+        io.unobserve(e.target);
       }
     });
+  }, {threshold:0.15});
+  document.querySelectorAll('.rv,[data-scramble]').forEach(function(el){ io.observe(el); });
 
-    /* ── FAQ accordion ── */
-    document.querySelectorAll('.faq-item').forEach(item => {
-      const question = item.querySelector('.faq-question');
-      const answer = item.querySelector('.faq-answer');
+  /* ---------- scramble decode ---------- */
+  function scramble(el){
+    if(RM || el.dataset.done) return;
+    el.dataset.done = '1';
+    var finalText = el.textContent;
+    var chars = '!<>-_\\/[]{}—=+*^?#';
+    var frame = 0, total = 26;
+    (function tick(){
+      frame++;
+      var progress = frame/total;
+      var out = '';
+      for(var i=0;i<finalText.length;i++){
+        var ch = finalText[i];
+        if(ch===' '){ out+=' '; continue; }
+        out += (i < progress*finalText.length) ? ch : chars[Math.floor(Math.random()*chars.length)];
+      }
+      el.textContent = out;
+      if(frame<total) requestAnimationFrame(tick);
+      else el.textContent = finalText;
+    })();
+  }
 
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
+  /* ---------- hero waveform ---------- */
+  var wave = document.getElementById('wave');
+  var BAR_N = 30, bars = [];
+  for(var i=0;i<BAR_N;i++){
+    var b = document.createElement('i');
+    wave.appendChild(b);
+    bars.push(b);
+  }
+  var burst = 0;
+  if(RM){
+    bars.forEach(function(b,i){ b.style.height = (20 + Math.abs(Math.sin(i*0.5))*55) + '%'; });
+  } else {
+    (function loop(t){
+      var tt = t/1000;
+      for(var i=0;i<BAR_N;i++){
+        var amp = 12 + (burst>0 ? 34 : 6) * Math.abs(Math.sin(i*0.9));
+        var h = 18 + Math.abs(Math.sin(tt*2.2 + i*0.55)) * amp + Math.random()*(burst>0?14:3);
+        bars[i].style.height = Math.min(96,h) + '%';
+      }
+      if(burst>0) burst -= 16;
+      requestAnimationFrame(loop);
+    })(0);
+  }
 
-        document.querySelectorAll('.faq-item.active').forEach(other => {
-          if (other !== item) {
-            other.classList.remove('active');
-            other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-            other.querySelector('.faq-answer').style.maxHeight = '0';
-          }
-        });
-
-        if (isActive) {
-          item.classList.remove('active');
-          question.setAttribute('aria-expanded', 'false');
-          answer.style.maxHeight = '0';
-        } else {
-          item.classList.add('active');
-          question.setAttribute('aria-expanded', 'true');
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-        }
-      });
+  /* ---------- hero deck ---------- */
+  var slides = document.querySelectorAll('#deck .slide');
+  var slideNum = document.getElementById('slideNum');
+  var heard = document.getElementById('heard');
+  var heardTxt = document.getElementById('heardTxt');
+  var L = slides.length, idx = 0, busy = false, autoTimer = null;
+  var SEQ = [
+    {c:'next slide', d:1},
+    {c:'next slide', d:1},
+    {c:'go back', d:-1},
+    {c:'next slide', d:1},
+    {c:'forward', d:1}
+  ];
+  var seqI = 0;
+  function pad(n){ return (n<10?'0':'')+n; }
+  function renderSlide(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    slideNum.textContent = pad(idx+1);
+  }
+  function typeHeard(text, done){
+    heard.classList.remove('done');
+    heard.classList.add('show');
+    if(RM){ heardTxt.textContent = '“'+text+'”'; done(); return; }
+    heardTxt.textContent = '';
+    var i = 0;
+    (function step(){
+      if(i <= text.length){
+        heardTxt.textContent = '“' + text.slice(0,i) + (i<text.length?'▌':'”');
+        i++;
+        setTimeout(step, 42);
+      } else {
+        heardTxt.textContent = '“'+text+'”';
+        done();
+      }
+    })();
+  }
+  function playCmd(text, dir, scheduleAfter){
+    if(busy) return;
+    busy = true;
+    clearTimeout(autoTimer);
+    typeHeard(text, function(){
+      burst = 900;
+      setTimeout(function(){
+        idx = ((idx + dir) % L + L) % L;
+        renderSlide();
+        heard.classList.add('done');
+        setTimeout(function(){
+          heard.classList.remove('show');
+          busy = false;
+          if(scheduleAfter) scheduleAuto();
+        }, 750);
+      }, 260);
     });
+  }
+  function scheduleAuto(){
+    if(RM) return;
+    autoTimer = setTimeout(function(){
+      var s = SEQ[seqI % SEQ.length]; seqI++;
+      playCmd(s.c, s.d, true);
+    }, 2600);
+  }
+  document.querySelectorAll('[data-say]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var d = parseInt(btn.dataset.say,10);
+      playCmd(d>0 ? 'next slide' : 'go back', d, true);
+    });
+  });
+  renderSlide();
+  scheduleAuto();
 
-    /* ── Set NayaPay number from config ── */
-    document.getElementById('nayapayNumber').textContent =
-      CONFIG.NAYAPAY_NUMBER + ' — Mohammad Ahmad';
-  </script>
+  /* ---------- terminal demo ---------- */
+  var termBody = document.getElementById('termBody');
+  var trackNum = document.getElementById('trackNum');
+  var trackBar = document.getElementById('trackBar');
+  var T = 7, TMAX = 18;
+  var autoPaused = 0;
+  function stamp(){
+    var d = new Date();
+    return pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+  }
+  function pushLine(html, cls){
+    var div = document.createElement('div');
+    div.className = 'tl' + (cls?' '+cls:'');
+    div.innerHTML = '<span class="time">['+stamp()+']</span>' + html;
+    termBody.appendChild(div);
+    while(termBody.children.length > 42) termBody.removeChild(termBody.firstChild);
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+  function updateTrack(){
+    trackNum.textContent = 'slide ' + T + ' / ' + TMAX;
+    trackBar.style.width = (T/TMAX*100) + '%';
+  }
+  function heardLine(word, dir, isPro){
+    T = Math.min(TMAX, Math.max(1, T + dir));
+    var conf = (0.93 + Math.random()*0.06).toFixed(2);
+    pushLine('heard <span class="word">“'+word+'”</span> <span class="conf">· conf '+conf+'</span> <span class="mv">→ slide '+T+'/'+TMAX+' '+(dir>0?'▸':'◂')+'</span>', isPro?'pro':'');
+    updateTrack();
+  }
+  pushLine('<span class="sys">$ voxslide --listen</span>');
+  pushLine('<span class="ok">● mic ready — say “next”, “back”, “forward” or “rewind”</span>');
+  updateTrack();
+  var SCRIPT = [
+    function(){ pushLine('<span class="sys">· listening…</span>'); },
+    function(){ heardLine('next', 1); },
+    function(){ heardLine('next', 1); },
+    function(){ heardLine('back', -1); },
+    function(){ pushLine('<span class="ok">noise gate ok · sensitivity 62%</span>'); },
+    function(){ heardLine('forward', 2); },
+    function(){ heardLine('rewind', -2); },
+    function(){ pushLine('<span class="sys">· listening…</span>'); },
+    function(){ heardLine('next', 1); }
+  ];
+  var scI = 0;
+  setInterval(function(){
+    if(Date.now() < autoPaused) return;
+    SCRIPT[scI % SCRIPT.length]();
+    scI++;
+  }, 1700);
+
+  document.getElementById('cmdChips').addEventListener('click', function(e){
+    var chip = e.target.closest('.chip');
+    if(!chip) return;
+    autoPaused = Date.now() + 4200;
+    heardLine(chip.dataset.word, parseInt(chip.dataset.dir,10), chip.classList.contains('custom'));
+  });
+
+  /* teach custom word */
+  var teachInput = document.getElementById('teachInput');
+  var teachBtn = document.getElementById('teachBtn');
+  function teach(){
+    var w = teachInput.value.trim().replace(/[^a-zA-Z0-9 _-]/g,'').slice(0,14);
+    if(!w){ toast('Type a trigger word first 🙂'); return; }
+    var chip = document.createElement('button');
+    chip.className = 'chip custom';
+    chip.dataset.word = w;
+    chip.dataset.dir = '1';
+    chip.innerHTML = '“'+w+'” <span class="pro-tag">PRO</span>';
+    document.getElementById('cmdChips').appendChild(chip);
+    teachInput.value = '';
+    autoPaused = Date.now() + 4200;
+    pushLine('<span class="sys">+ custom trigger registered: </span><span class="word">“'+w+'”</span>', 'pro');
+    toast('🎓 Taught VoxSlide to obey “'+w+'”');
+  }
+  teachBtn.addEventListener('click', teach);
+  teachInput.addEventListener('keydown', function(e){ if(e.key==='Enter') teach(); });
+
+  /* ---------- sensitivity slider ---------- */
+  var sens = document.getElementById('sensSlider');
+  var sensLab = document.getElementById('sensLab');
+  function sensUpdate(){
+    var v = parseInt(sens.value,10);
+    sens.style.setProperty('--val', v+'%');
+    sensLab.textContent = v<34 ? 'Chill' : v<70 ? 'Balanced' : 'Sharp';
+  }
+  sens.addEventListener('input', sensUpdate);
+  sensUpdate();
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = '0px';
+        o.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!open){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+        q.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+
+  /* ---------- final CTA bars ---------- */
+  var fw = document.getElementById('finalWave');
+  for(var j=0;j<44;j++){
+    var bar = document.createElement('i');
+    bar.style.height = (18 + Math.random()*70) + '%';
+    bar.style.animationDelay = (Math.random()*1.4) + 's';
+    bar.style.animationDuration = (0.9 + Math.random()*0.9) + 's';
+    fw.appendChild(bar);
+  }
+})();
+</script>
 </body>
 </html>
