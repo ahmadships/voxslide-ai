@@ -12,9 +12,9 @@ class Config:
 
     # ── Auto-update (GitHub Releases) ─────────────────────────
     # Set these to your public GitHub repository that hosts Releases.
-    # Example: https://github.com/YOUR_USER/voxslide-app/releases
-    GITHUB_OWNER = "YOUR_GITHUB_USERNAME"
-    GITHUB_REPO = "voxslide-app"
+    # Example: https://github.com/ahmadships/voxslide-ai/releases
+    GITHUB_OWNER = "ahmadships"
+    GITHUB_REPO = "voxslide-ai"
     # Preferred installer asset name uploaded to each Release
     UPDATE_ASSET_NAME = "VoxSlideAI_Setup.exe"
     # Set True to disable update checks (also: VOXSLIDE_SKIP_UPDATE=1)
